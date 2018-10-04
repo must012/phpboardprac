@@ -1,0 +1,161 @@
+/*
+ * Base structure
+ */
+
+body {
+    padding-top: 3.5rem;
+}
+
+p {
+    margin: 0;
+}
+
+hr {
+    margin-top: 8px;
+    background-color: black;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+/*
+ * Typography
+ */
+
+h1 {
+    padding-bottom: 9px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+/*
+ * Navbar
+ */
+
+.navbar {
+    background-color: #4c80e6;
+}
+
+/*
+ * aside
+ */
+.aside {
+    background-color: #eeeeee;
+}
+
+/*
+ * sidebar
+ */
+
+.sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 20px 0;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    border-right: 1px solid #eee;
+}
+
+.sidebar .nav {
+    margin-bottom: 20px;
+}
+
+.sidebar .nav-item {
+    width: 100%;
+}
+
+.sidebar .nav-item + .nav-item {
+    margin-left: 0;
+}
+
+.sidebar .nav-link {
+    border-radius: 0;
+}
+
+/*
+ * th, td, table
+ */
+
+table {
+    box-shadow: 1px 1px 0 1px #f1f3f5;
+}
+
+tbody, thead th {
+    font-weight: bold;
+    text-align: center;
+}
+
+td {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 12px;
+
+}
+
+/*
+ * #uName, .logout
+ */
+
+#uName {
+    margin: 2px auto;
+    font-weight: bold;
+    text-align: center;
+}
+
+/*
+ * .detail
+ */
+
+.detail:hover {
+    color: #0984e3;
+    cursor: pointer;
+}
+
+/*
+ * #blueBut
+ */
+
+#blueBut {
+    background-color: #0984e3;
+    color: white;
+    border-color: #0984e3;
+}
+
+#blueBut:hover {
+    background-color: #0960bf;
+    border-color: #0974d2;
+}
+
+#redBut {
+    background-color: #d63031;
+    color: white;
+    border-color: #d63031;
+}
+
+#redBut:hover {
+    background-color: #C73031;
+    border-color: #be3031;
+}
+
+#greBut {
+    background-color: #00b894;
+    color: white;
+    border-color: #00b894;
+}
+
+#greBut:hover {
+    background-color: #008f6b;
+    border-color: #00bf97;
+}
+
+.row {
+    min-height: 92vh;
+}
+
+/*
+ * Board
+ */

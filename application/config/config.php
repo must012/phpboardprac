@@ -6,7 +6,7 @@
  * Time: 오후 11:35
  */
 
-// 상수 정의 및 자주 쓰는 메서드 정의
+// 경로 정의
 
 define("_ROOT",'C:/phpstudy/ReportMVC');
 define("_PUBLIC", _ROOT."/public/");
@@ -16,8 +16,11 @@ define("_VIEW", _APP."View/");
 define("_CTR", _APP."/Controller/");
 define("_CONFIG", _APP."/config/");
 
+// 변수 정의
 define("LOGIN_PAGE", "login_form.php");
 define("MAIN_PAGE", _VIEW."BoardList.php");
+define("COUNT_LIST", 5); // 한 페이지에 출력될 수
+define("COUNT_PAGE", 10); // 한 화면에 출력될 페이지 수
 
 require_once(_CONFIG."config.php");
 

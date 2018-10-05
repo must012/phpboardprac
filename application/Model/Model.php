@@ -108,10 +108,13 @@ class Model
         }
     }
 
-    public function callList()
+    public function callList($page)
     {
         try {
-            $pstmt = $this->db->prepare("SELECT * FROM board ORDER BY publish DESC");
+            $pstmt = $this->db->query("SELECT @ROWNUM := @ROWNUM + 1 AS NUM, writer, title, contents, publish, view 
+            FROM board, (SELECT @ROWNUM := 0) A 
+            ORDER BY publish DESC 
+            LIMIT ".($page-1)*COUNT_LIST.", ".COUNT_LIST);
             $pstmt->execute();
             return $result = $pstmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -129,6 +132,17 @@ class Model
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
+    }
+
+    public function countContent()
+    {
+        try {
+            $pstmt = $this->db->query("SELECT COUNT(*) FROM board");
+            return $result = $pstmt->fetch(PDO::FETCH_NUM);
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+
     }
 
 }

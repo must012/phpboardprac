@@ -16,6 +16,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
             integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
             crossorigin="anonymous"></script>
+    <script type="text/javascript" src="ReportMVC/public/js/ckeditor/ckeditor.js"></script>
+
 
     <!-- 템플릿을 개인적으로 바꾸기 위한 css -->
 
@@ -27,13 +29,13 @@
 <body>
 <header>
     <nav class="navbar navbar-dark fixed-top">
-        <h2><a class="navbar-brand" href="">Sujae's PHP REPORT</a></h2>
+        <h2><a class="navbar-brand" href="/board">Sujae's PHP REPORT</a></h2>
     </nav>
 </header>
 
 <div class="container-fluid">
     <div class="row">
-        <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pl-md-5 pr-md-5 pt-md-4 pb-md-4" id="main">
+        <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pl-md-5 pr-md-5 pt-md-3 pb-md-2" id="main">
 
             <h2 style="display: inline-block">Board</h2>
             <?php if ($loginCheck) { ?>
@@ -46,26 +48,78 @@
                 <table class="table table-striped table-bordered">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">작성자</th>
-                        <th scope="col">제목</th>
-                        <th scope="col">내용</th>
-                        <th scope="col">작성 일자</th>
-                        <th scope="col">조회수</th>
+                        <th scope="col" style="width: 5%">번호</th>
+                        <th scope="col" style="width: 25%">제목</th>
+                        <th scope="col" style="width: 35%">내용</th>
+                        <th scope="col" style="width: 8%">작성자</th>
+                        <th scope="col" style="width: 20%">작성 일자</th>
+                        <th scope="col" style="width: 7%">조회수</th>
                     </tr>
                     </thead>
+
                     <tbody><?php foreach ($list as $value) : ?>
                         <tr>
-                            <td scope="row"><?= $value["writer"] ?></td>
+                            <td scope="row"><?= ($page - 1) * COUNT_LIST + $value["NUM"] ?></td>
                             <td><p class="detail" id="<?= $value["num"] ?>"><?= $value["title"] ?></p></td>
-                            <td><?= $value["contents"] ?></td>
+                            <td scope="row"><?= substr($value["contents"], 0, 10); ?></td>
+                            <td><?= $value["writer"] ?></td>
                             <td><?= $value["publish"] ?></td>
                             <td><?= $value["view"] ?></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
                 </table>
-
             </div>
+            <nav aria-label="pagination">
+                <ul class="pagination justify-content-center mb-0">
+
+                    <!--   첫 페이지 이동   -->
+
+                    <?php if ($page != 1) : ?>
+                        <li class="page-item">
+                            <a class="page-link" href="/board?page=1">처음</a>
+                        </li>
+                    <?php endif; ?>
+
+                    <!--   전 페이지 이동   -->
+
+                    <?php if ($startPage == 0) : ?>
+                <li class="page-item disabled"><span class="page-link">&laquo;</span>
+                <?php else : ?>
+                    <li class="page-item"><a class="page-link" href="/board?page=<?= ($startPage > 0) ? $startPage : 1 ?>">&laquo;</a>
+                        <?php endif; ?></li>
+
+                    <!-- 숫자 생성 -->
+
+                    <?php for ($i = $startPage; $i < $endPage; $i++) : ?>
+                        <?php if ($page == ($i + 1)) :
+                            echo '<li class="page-item active">';
+                        else :
+                            echo '<li class="page-item">';
+                        endif; ?><a class="page-link" href="/board?page=<?= $i + 1 ?>"><?= $i + 1 ?></a>
+                        </li>
+                    <?php endfor; ?>
+
+                    <!--   다음 페이지 이동   -->
+
+                    <?php if ($endPage < $totalPage) : ?>
+                        <li class="page-item"><a class="page-link" href="/board?page=<?= $endPage + 1 ?>">&raquo;</a>
+                        </li>
+                    <?php else : ?>
+                        <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                    <?php endif; ?>
+
+                    <!--   끝 페이지 이동   -->
+
+                    <?php if ($page != $totalPage) : ?>
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="/board?page=<?= floor(($totalPage / COUNT_PAGE)) * 10 + ($totalPage % COUNT_PAGE) ?>">끝</a>
+                        </li>
+                    <?php endif; ?>
+
+                </ul>
+            </nav>
         </main>
 
         <div class="aside col-sm-3 ml-sm-9 col-md-2 d-none d-sm-block pt-4 align-middle">

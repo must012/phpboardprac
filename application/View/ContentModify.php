@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
+    <script type="text/javascript" src="../../public/js/ckeditor/ckeditor.js"></script>
+
     <link href="../../public/css/Board.css" rel="stylesheet">
     <style>
         body {
@@ -39,8 +41,7 @@
                        required>
             </div>
             <div class="form-group">
-                <label for="contents">내용</label>
-                <textarea class="form-control" id="contnets" name="contents" rows="10" required autofocus><?=
+                <textarea class="form-control" name="contents" rows="10" required autofocus><?=
                     $data["contents"] ?></textarea>
             </div>
 
@@ -49,5 +50,8 @@
 
     </div>
 </div>
+<script>
+    CKEDITOR.replace('contents');
+</script>
 </body>
 </html>

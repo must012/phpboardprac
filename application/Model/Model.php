@@ -111,7 +111,7 @@ class Model
     public function callList($page)
     {
         try {
-            $pstmt = $this->db->query("SELECT @ROWNUM := @ROWNUM + 1 AS NUM, writer, title, contents, publish, view 
+            $pstmt = $this->db->query("SELECT @ROWNUM := @ROWNUM + 1 AS NUM, num, writer, title, publish, view
             FROM board, (SELECT @ROWNUM := 0) A 
             ORDER BY publish DESC 
             LIMIT ".($page-1)*COUNT_LIST.", ".COUNT_LIST);

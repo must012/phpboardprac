@@ -7,7 +7,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <link href="./public/css/Board.css" rel="stylesheet">
+<!--   ck editor -->
+
+    <script type="text/javascript" src="../../public/js/ckeditor/ckeditor.js"></script>
+
+<!--   google font -->
+
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
+
+<!--   css -->
+    <link href="../../public/css/Board.css" rel="stylesheet">
 
     <style>
         body {
@@ -15,7 +24,7 @@
         }
 
         .row {
-            margin-top: 3.5rem;
+            margin-top: 2rem;
         }
     </style>
 
@@ -40,7 +49,7 @@
             </div>
             <div class="form-group">
                 <label for="contents">내용</label>
-                <textarea class="form-control" id="contnets" name="contents" rows="10" required></textarea>
+                <textarea class="form-control" id="contents" name="contents" required></textarea>
             </div>
 
             <button class="btn btn-lg" id="blueBut" type="submit">글쓰기</button>
@@ -49,5 +58,15 @@
 
     </div>
 </div>
+
+<script>
+
+    CKEDITOR.replace('contents',
+        {
+            height : '50vh',  // 입력창의 높이
+            startupFocus : false
+        }
+    );
+</script>
 </body>
 </html>

@@ -3,7 +3,7 @@
  */
 
 body {
-    padding-top: 3.5rem;
+    padding-top: 3rem;
 }
 
 p {
@@ -15,8 +15,12 @@ hr {
     background-color: black;
 }
 
-button:hover {
+.btn:hover {
     cursor: pointer;
+}
+
+li {
+    padding: 0;
 }
 
 /*
@@ -29,6 +33,11 @@ h1 {
     border-bottom: 1px solid #eee;
 }
 
+h2{
+    font-family: 'Do Hyeon', sans-serif;
+    margin: 0;
+}
+
 /*
  * Navbar
  */
@@ -37,6 +46,10 @@ h1 {
     background-color: #4c80e6;
 }
 
+.navbar-brand {
+    font-size: 2rem;
+    padding: 0;
+}
 /*
  * aside
  */
@@ -68,7 +81,7 @@ h1 {
     width: 100%;
 }
 
-.sidebar .nav-item + .nav-item {
+.sidebar .nav-item .nav-item {
     margin-left: 0;
 }
 
@@ -156,6 +169,31 @@ td {
     min-height: 92vh;
 }
 
+.list-comment-wrapper{
+    vertical-align: middle;
+    text-align: center;
+    display: table;
+}
+
+.item-comment-icon {
+    font-size: 1.5rem;
+}
+
+.item-comment-count {
+    display: table-cell;
+    font-size: 1.5rem;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.data {
+    min-height: 75vh;
+    border: 1px solid black;
+}
+
 /*
  * Board
  */
+

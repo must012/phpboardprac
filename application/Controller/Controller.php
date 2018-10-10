@@ -39,13 +39,9 @@ class Controller
 
         $list = $this->model->callList($page, $endPage);
 
-        $loginCheck = true;
-
-        if ($_SESSION["id"] ?? '') {
-            $loginCheck = true;
-            $name = $_SESSION["name"] ?? '';
-        } else
-            $loginCheck = false;
+        $value = loginCheck();
+        $loginCheck = $value[0];
+        $name = $value[1];
 
         require_once _VIEW . "BoardList.php";
     }
@@ -150,7 +146,7 @@ class Controller
         $num = requestValue("num");
 
         $data = $this->model->getContents($num);
-        $this->model->increaseViewCount($num);
+        $this->model->increaseViewCount($num, $id);
 
         if ($id)
             require_once _VIEW . "BoardDetail.php";
@@ -197,6 +193,7 @@ class Controller
 //글을 작성하는 메서드
     function write()
     {
+
         if (isset($_SESSION["id"])) {
             $wt = requestValue("writer");
             $tt = requestValue("title");

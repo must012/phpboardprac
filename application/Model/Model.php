@@ -122,11 +122,13 @@ class Model
         }
     }
 
-    public function increaseViewCount($num)
+    public function increaseViewCount($num, $id)
     {
         try {
-            $pstmt = $this->db->prepare("UPDATE board SET view =view+1 WHERE num=:num");
+            $pstmt = $this->db->prepare("INSERT INTO viewer(contentsNum, viewer) VALUES (:num,:id )");
+//            $pstmt = $this->db->prepare("UPDATE board SET view =view+1 WHERE num=:num");
             $pstmt->bindValue(":num", $num, PDO::PARAM_INT);
+            $pstmt->bindValue(":id", $id, PDO::PARAM_STR);
             $pstmt->execute();
 
         } catch (PDOException $e) {

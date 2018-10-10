@@ -3,6 +3,11 @@
 <!doctype html>
 <html lang="kr">
 <head>
+    <!--  google font -->
+
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+
+    <!--  head   -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -17,82 +22,83 @@
             integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
             crossorigin="anonymous"></script>
 
-    <!--    fontawesome  -->
+    <!--  fontawesome  -->
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
           integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <!--    google font -->
-
-    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
-
-    <!--    css -->
+    <!--  css -->
 
     <link href="../../public/css/Board.css" rel="stylesheet">
+
 
     <title>PHP 과제 제출</title>
 </head>
 
 <body>
-<header>
-    <nav class="navbar navbar-dark fixed-top">
-        <h2><a class="navbar-brand" href="/board">Sujae's PHP REPORT</a></h2>
-    </nav>
-</header>
 
 <div class="container-fluid">
     <div class="row">
-        <div class="aside col-sm-3 col-md-2 d-none d-sm-block pt-4 align-middle">
-            <div class="p-1 col-md-12 bg-white">
+        <nav class="sidebar col-sm-3 col-md-2 d-none d-sm-block pt-4 align-middle">
+            <div class="pl-3 pb-2">
+                <h2><a class="brand" href="/board">
+                        Sujae's</br>PHP REPORT</a></h2></div>
+
+            <div class="p-1 col-md-11 ml-auto mr-auto mt-3 mb-3">
                 <?php if (!$loginCheck) { ?>
                     <form action="/board/login" method="post">
-                        <div class="form-group col-md-12 col-sm-12">
-                            <label for="id">ID</label>
-                            <input type="text" class="form-control" id="id" name="id" placeholder="아이디" required>
+                        <div class="form-group col-11 ml-auto mr-auto">
+
+                            <input type="text" class="form-control col-12" id="id" name="id" placeholder="아이디"
+                                   required>
+                            <input type="password" class="form-control col-12" id="pw" name="pw" placeholder="비밀번호"
+                                   required>
+
                         </div>
-                        <div class="form-group col-md-12 col-sm-12">
-                            <label for="pw">PASSWORD</label>
-                            <input type="password" class="form-control" id="pw" name="pw" placeholder="비밀번호" required>
-                            <hr>
-                            <div class="clearfix">
-                                <button type="submit" class="btn btn-sm col-md-5 float-left" id="blueBut">로그인</button>
-                                <button class="btn btn-sm col-md-6 float-right" id="redBut"
-                                        onclick="location.href='/signup'">
-                                    회원가입
-                                </button>
-                            </div>
+
+                        <div class="d-flex col-12 p-0">
+                            <button type="submit" class="btn btn-sm col-6" id="blueBut">로그인
+                            </button>
+                            <button class="btn btn-sm col-6" id="redBut"
+                                    onclick="location.href='/signup'">회원가입
+                            </button>
                         </div>
+
                     </form>
                 <?php } else { ?>
-                    <div id="uName"><?= $name ?>님 환영합니다!</div>
-                    <hr>
-                    <div class="clearfix">
-                        <button id="redBut" class="btn btn-sm col-md-4 float-left"
-                                onclick="location.href='/board/logout'">로그아웃
-                        </button>
-                        <button class="btn btn-sm col-md-6 float-right" id="blueBut"
-                                onclick="location.href='/member'">
-                            회원정보수정
-                        </button>
+                    <div class="mb-md-2 row" id="uName" style="color: #FFFFFF">
+                        <div class="col-6 align-middle ml-4 pt-2"><p id="nickName"><?= $name ?> 님</p></div>
+                        <div class="col-4 d-flex flex-column">
+                            <div class="pb-1"><i class="fas fa-sign-out-alt"
+                                                 onclick="location.href='/board/logout'"></i></div>
+                            <div><i class="fas fa-user-cog" onclick="location.href='/member'"></i></div>
+                        </div>
+
                     </div>
+                    <hr style="background-color: #808080">
                 <?php } ?>
             </div>
-        </div>
+        </nav>
 
-        <main role="main" class="col-sm-6 col-md-7 pl-md-5 pr-md-5 pt-md-3 pb-md-2" id="main">
-            <h2 class="d-inline-block">Board</h2>
-            <?php if ($loginCheck) { ?>
-                <div class="btn float-right write-btn" onclick="location.href='/write'">
-                    글쓰기
-                </div>
-            <?php } ?>
+        <div class="col-md-2 col-sm-3 mr-4"></div>
+        <main role="main" class="col-sm-7 col-md-7 pr-md-5 pt-md-3 pb-md-2" id="main">
+            <div class="row">
+                <div class="subject col-md-10"><h2 class="d-inline-block">Board</h2></div>
+
+                <?php if ($loginCheck) { ?>
+                    <div class="col-2 pl-5">
+                        <button class="btn float-right write-btn" id="blueBut" onclick="location.href='/write'">
+                            <i class="far fa-edit"> 글쓰기</i>
+                        </button>
+                    </div>
+                <?php } ?></div>
 
 
             <hr>
             <div class="container">
                 <ul class="list-group">
                     <?php foreach ($list as $value) : ?>
-                        <li class="list-group-item d-flex flex-row">
+                        <li class="list-group-item d-flex flex-row contents-list">
                             <!--                        제목 부분 div -->
                             <div class="list-title-wrapper col-md-6">
                                 <div class="list-tag">

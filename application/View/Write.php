@@ -8,6 +8,9 @@
     <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--    bootstrap css -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -15,11 +18,12 @@
 
     <script type="text/javascript" src="../../public/js/ckeditor/ckeditor.js"></script>
 
-    <!--   google font -->
+    <!--    font awesome -->
 
-    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <!--   css -->
+    <!--   custom css -->
     <link href="../../public/css/Board.css" rel="stylesheet">
 
     <style>
@@ -32,7 +36,7 @@
         }
     </style>
 
-    <title>글 작성하기</title>
+    <title>Sujae's PHP REPORT</title>
 </head>
 <body>
 
@@ -43,29 +47,12 @@
                     Sujae's</br>PHP REPORT</a></h2></div>
 
         <div class="p-1 col-md-11 ml-auto mr-auto mt-3 mb-3">
-            <?php if (!$loginCheck) { ?>
-                <form action="/board/login" method="post">
-                    <div class="form-group col-11 ml-auto mr-auto">
-
-                        <input type="text" class="form-control col-12" id="id" name="id" placeholder="아이디"
-                               required>
-                        <input type="password" class="form-control col-12" id="pw" name="pw" placeholder="비밀번호"
-                               required>
-
-                    </div>
-
-                    <div class="d-flex col-12 p-0">
-                        <button type="submit" class="btn btn-sm col-6" id="blueBut">로그인
-                        </button>
-                        <button class="btn btn-sm col-6" id="redBut"
-                                onclick="location.href='/signup'">회원가입
-                        </button>
-                    </div>
-
-                </form>
-            <?php } else { ?>
+            <?php if (!isset($_SESSION["id"])) {
+                goToPage("로그인 한 사용자만 글쓰기 가능","/board");
+            }
+            else { ?>
                 <div class="mb-md-2 row" id="uName" style="color: #FFFFFF">
-                    <div class="col-6 align-middle ml-4 pt-2"><p id="nickName"><?= $name ?> 님</p></div>
+                    <div class="col-6 align-middle ml-4 pt-2"><p id="nickName"><?= $_SESSION["name"] ?> 님</p></div>
                     <div class="col-4 d-flex flex-column">
                         <div class="pb-1"><i class="fas fa-sign-out-alt"
                                              onclick="location.href='/board/logout'"></i></div>
@@ -79,8 +66,6 @@
     </nav>
 
     <div class="col-md-2 mr-md-4 col-sm-3"></div>
-
-
 
     <div class="container-fluid col-md-9 col-sm-8 bg-white">
         <div><h2>Write</h2>
@@ -97,21 +82,18 @@
                 <textarea class="form-control" id="contents" name="contents" required></textarea>
             </div>
 
-            <button class="btn btn-lg" id="blueBut" type="submit">글쓰기</button>
-            <button class="btn btn-lg" id="redBut" onclick="location.href='/board'">목록보기</button>
+            <button class="btn btn-lg blueBut" type="submit">글쓰기</button>
+            <button class="btn btn-lg redBut" onclick="location.href='/board'">목록보기</button>
         </form>
 
     </div>
 </div>
 
-<script>
+<script type="text/javascript">
 
-    CKEDITOR.replace('contents',
-        {
-            height: '45vh',  // 입력창의 높이
-            startupFocus: false
-        }
-    );
+    CKEDITOR.replace('contents');
+
+    CKEDITOR.instances.contents.updateElement();
 </script>
 </body>
 </html>

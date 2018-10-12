@@ -57,9 +57,9 @@
                         </div>
 
                         <div class="d-flex col-12 p-0">
-                            <button type="submit" class="btn btn-sm col-6" id="blueBut">로그인
+                            <button type="submit" class="btn btn-sm col-6 blueBut">로그인
                             </button>
-                            <button class="btn btn-sm col-6" id="redBut"
+                            <button class="btn btn-sm col-6 redBut"
                                     onclick="location.href='/signup'">회원가입
                             </button>
                         </div>
@@ -87,7 +87,7 @@
 
                 <?php if ($loginCheck) { ?>
                     <div class="col-2 pl-5">
-                        <button class="btn float-right write-btn" id="blueBut" onclick="location.href='/write'">
+                        <button class="btn float-right write-btn blueBut" onclick="location.href='/write'">
                             <i class="far fa-edit"> 글쓰기</i>
                         </button>
                     </div>

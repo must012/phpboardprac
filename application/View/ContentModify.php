@@ -45,7 +45,7 @@
                     $data["contents"] ?></textarea>
             </div>
 
-            <button id="blueBut" class="btn btn-lg" type="submit">수정완료</button>
+            <button class="btn btn-lg blueBut" type="submit">수정완료</button>
         </form>
 
     </div>

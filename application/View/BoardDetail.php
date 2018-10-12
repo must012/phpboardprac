@@ -22,10 +22,10 @@
             <div class="contents-data"><?= $data["publish"] ?></div>
         </div>
         <div class="action col-3 pt-md-1">
-            <button id="blueBut" class="btn" onclick="location.href= '/board/modify/<?= $num ?>'"><i
+            <button class="btn blueBut" onclick="location.href= '/board/modify/<?= $num ?>'"><i
                         class="far fa-edit">수정</i>
             </button>
-            <button id="redBut" class="btn ml-md-1" onclick="checkDelete(<?= $data["num"] ?>)"><i
+            <button class="btn ml-md-1 redBut" onclick="checkDelete(<?= $data["num"] ?>)"><i
                         class="far fa-trash-alt">
                     삭제</i>
             </button>

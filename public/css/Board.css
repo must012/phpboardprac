@@ -118,16 +118,16 @@ td {
 }
 
 /*
- * #blueBut
+ * .blueBut
  */
 
-#blueBut {
+.blueBut {
     background-color: #0984e3;
     color: white;
     border-color: #0984e3;
 }
 
-#blueBut:hover {
+.blueBut:hover {
     background-color: #0960bf;
     border-color: #0974d2;
 }
@@ -143,13 +143,13 @@ td {
     border-color: #FFFFFF;
 }
 
-#redBut {
+.redBut {
     background-color: #d63031;
     color: white;
     border-color: #d63031;
 }
 
-#redBut:hover {
+.redBut:hover {
     background-color: #C73031;
     border-color: #be3031;
 }

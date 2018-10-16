@@ -66,6 +66,7 @@ class Controller
                     $_SESSION["name"] = $member["name"];
 
                     header("Location: /board");
+
                 } else {
                     errorBack("비밀번호 확인");
                 }
@@ -84,6 +85,7 @@ class Controller
         unset($_SESSION["id"]);
         unset($_SESSION["name"]);
         header("Location: /board");
+
     }
 
 //회원가입을 하는 메서드
@@ -206,6 +208,7 @@ class Controller
                 $this->model->insertContents($wt, $tt, $ct);
 
                 header("Location: /board");
+
             } else {
                 goToPage("값 충분하지 않음", "/board");
             }

@@ -64,15 +64,23 @@ h2{
 .brand:hover{
     color: white;
     text-decoration: none;
+    border-right: 0;
 }
 
 .sidebar {
     background-color: #0059ab;
 }
 
-/*
- * sidebar
- */
+.yjp{
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.yjp:hover{
+    background-color: whitesmoke;
+}
 
 .sidebar {
     position: fixed;
@@ -83,8 +91,11 @@ h2{
     padding: 20px 0;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    border-right: 1px solid #eee;
 }
+
+/*
+ * sidebar
+ */
 
 /*
  * th, td, table
@@ -115,6 +126,12 @@ td {
     font-weight: bold;
     text-align: center;
 }
+
+
+
+/*
+ * Board
+ */
 
 /*
  * .detail
@@ -206,27 +223,19 @@ td {
     color: white;
 }
 
-/*.fa-user-plus {*/
-    /*color: white;*/
-/*}*/
-
-/*
- * Board
- */
-
 .panel-default{
     background-color: white;
+    border: 1px solid #BBBBBB;
 }
 
 .panel-heading {
-    border: 1px solid #ababab;
+    border-bottom: 1px solid #BBBBBB;
 }
 
 .panel-body {
-    border: 1px solid #ababab;
-    border-top: 0;
     min-height: 75vh;
 }
+
 /*
  * Detail
  */

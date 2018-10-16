@@ -40,7 +40,6 @@
 
 </div>
 
-
 <script>
     function checkDelete(num) {
 

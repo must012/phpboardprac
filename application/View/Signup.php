@@ -14,7 +14,7 @@
 <body>
 <header>
     <nav class="navbar navbar-dark fixed-top">
-        <h2><a class="navbar-brand" href="/board">Sujae's PHP REPORT</a></h2>
+        <h2><a class="navbar-brand" href="/board">PHP REPORT</a></h2>
     </nav>
 </header>
 

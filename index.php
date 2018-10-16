@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: LeeSJ
@@ -6,7 +7,6 @@
  * Time: 오후 11:38
  */
 
-//index에서 모든 url이 나누어 지므로 session_start 는 index에서 한번만 실행해주면 됨
 session_start();
 
 //매번 require 하지 않고 여기서 하며, 클래스에 생성자를 만들 떄, 매번 추가하지 않도록 autoload 설정
@@ -19,8 +19,8 @@ $path = parse_url($_SERVER['REQUEST_URI'], 5);
 //매개변수값이 있는 경우를 위한 부분
 $paths = explode("/", $_SERVER["REQUEST_URI"]);
 $num = '';
-?>
 
+?>
     <script type="text/javascript">
         console.log("request url : <?= $_SERVER["REQUEST_URI"] ?>");
         console.log("path type : <?= gettype($path) ?>");
@@ -28,6 +28,7 @@ $num = '';
     </script>
 
 <?php
+
 //매개 변수값은 따로 저장
 if (count($paths) > 3) {
     $num = array_pop($paths);
@@ -41,7 +42,9 @@ $value = loginCheck();
 $loginCheck = $value[0];
 $name = $value[1];
 
-require_once _VIEW."header.php";
+if (!(($path == "/board/login") || ($path == "/board/logout") || ($path == "/write/update"))){
+    require_once _VIEW . "header.php";
+}
 
 switch ($path) {
 
@@ -99,4 +102,4 @@ switch ($path) {
         $controller->board($loginCheck);
 }
 
-require_once _VIEW."footer.php";
+require_once _VIEW . "footer.php";

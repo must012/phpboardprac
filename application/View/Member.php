@@ -1,22 +1,13 @@
 <!-- 회원 정보를 변경하는 View -->
+<link href="./public/css/SignUp.css" rel="stylesheet">
 
-<!doctype html>
-<html lang="kr">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<div class="row">
+    <div class="subject col-md-10"><h2>정보 수정</h2></div>
 
-    <link href="./public/css/SignUp.css" rel="stylesheet">
+</div>
 
-    <title>회원 정보 변경</title>
-</head>
-<body>
-<nav class="navbar navbar-dark fixed-top">
-    <h2><a class="navbar-brand" href="/board">Sujae's PHP REPORT</a></h2>
-</nav>
-<div class="container-fluid">
 
+<div class="panel-default">
     <form class="form-signup" action="/membermodify">
 
         <h2 class="form-signup-heading">회원 정보 변경</h2>
@@ -26,8 +17,4 @@
 
         <button class="btn btn-lg btn-block" type="submit">변경 완료</button>
     </form>
-
-</div> <!-- /container -->
-
-</body>
-</html>
+</div>

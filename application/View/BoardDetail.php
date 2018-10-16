@@ -1,19 +1,17 @@
 <!-- 컨텐츠의 상세내용을 보여주는 View -->
 <script type="text/javascript" src="../../public/js/ckeditor/ckeditor.js"></script>
-<!--    google font -->
-
-<link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
 
 <div class="row">
     <div class="subject col-md-10"><h2>Detail</h2></div>
 
     <div class="col-2 pl-5">
-        <button id="greBut" class="btn" onclick="location.href= '/board'"><i class="fas fa-list"> 목록</i></button>
+        <button class="btn greBtn" onclick="location.href= '/board'"><i class="fas fa-list"> 목록</i></button>
 
     </div>
 </div>
 
 <hr>
+
 <div class="panel-default">
 
     <div class="panel-heading d-flex justify-content-between pt-2 pb-2">
@@ -21,11 +19,11 @@
             <div class="contents-writer">작성자 : <?= $data["writer"] ?></div>
             <div class="contents-data"><?= $data["publish"] ?></div>
         </div>
-        <div class="action col-3 pt-md-1">
-            <button class="btn blueBut" onclick="location.href= '/board/modify/<?= $num ?>'"><i
+        <div class="action col-3 pl-4 pt-2">
+            <button class="btn blueBtn" onclick="location.href= '/board/modify/<?= $num ?>'"><i
                         class="far fa-edit">수정</i>
             </button>
-            <button class="btn ml-md-1 redBut" onclick="checkDelete(<?= $data["num"] ?>)"><i
+            <button class="btn ml-md-1 redBtn" onclick="checkDelete(<?= $data["num"] ?>)"><i
                         class="far fa-trash-alt">
                     삭제</i>
             </button>
@@ -37,7 +35,6 @@
             <hr style="background-color: whitesmoke">
             <div><?= $data["contents"] ?></div>
         </div>
-
 
     </div>
 

@@ -2,6 +2,14 @@
  * Base structure
  */
 
+div{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+button{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 body {
     background-color: whitesmoke;
 }
@@ -121,52 +129,48 @@ td {
  * .blueBut
  */
 
-.blueBut {
+.blueBtn {
     background-color: #0984e3;
     color: white;
     border-color: #0984e3;
 }
 
-.blueBut:hover {
+.blueBtn:hover {
     background-color: #0960bf;
     border-color: #0974d2;
 }
 
-#whiteBut {
+.whiteBtn {
     background-color: #FFFFFF;
     color: black;
     border-color: #909090;
 }
 
-#whiteBut:hover {
+.whiteBtn:hover {
     background-color: #FFFFFF;
     border-color: #FFFFFF;
 }
 
-.redBut {
+.redBtn {
     background-color: #d63031;
     color: white;
     border-color: #d63031;
 }
 
-.redBut:hover {
+.redBtn:hover {
     background-color: #C73031;
     border-color: #be3031;
 }
 
-#greBut {
+.greBtn {
     background-color: #00b894;
     color: white;
     border-color: #00b894;
 }
 
-#greBut:hover {
+.greBtn:hover {
     background-color: #008f6b;
     border-color: #00bf97;
-}
-
-.row {
-    /*min-height: 92vh;*/
 }
 
 .list-comment-wrapper{
@@ -215,11 +219,12 @@ td {
 }
 
 .panel-heading {
-    border: 1px solid black;
+    border: 1px solid #ababab;
 }
 
 .panel-body {
-    border: 1px solid black;
+    border: 1px solid #ababab;
+    border-top: 0;
     min-height: 75vh;
 }
 /*

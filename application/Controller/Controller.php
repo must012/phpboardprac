@@ -11,23 +11,25 @@ class Controller
 // url 에 따라 실행되는 기능이 달라짐
     private $model;
     private $num;
-
+    private $loginCheck;
+    private $name;
 
 // model 을 조정하기 위한 객체를 받는 생성자
     function __construct(Model $model)
     {
         $this->model = $model;
         $this->num = $this->model->countContent();
+
     }
 
 //메인 페이지를 불러오는 메서드
-    function board()
+    function board($loginCheck)
     {
-
+        $this->loginCheck = $loginCheck;
         $totalPage = floor($this->num[0] / COUNT_LIST);
 
         $totalPage = ($this->num[0] % COUNT_LIST > 0) ? $totalPage + 1 : $totalPage;
-        $page = ($_REQUEST["page"])?? "1";
+        $page = ($_REQUEST["page"]) ?? "1";
 
         $page = ($totalPage < $page) ? $totalPage : $page;
 
@@ -39,9 +41,9 @@ class Controller
 
         $list = $this->model->callList($page, $endPage);
 
-        $value = loginCheck();
-        $loginCheck = $value[0];
-        $name = $value[1];
+//        $value = loginCheck();
+//        $loginCheck = $value[0];
+//        $name = $value[1];
 
         require_once _VIEW . "BoardList.php";
     }

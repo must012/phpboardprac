@@ -147,14 +147,21 @@ class Controller
     {
         $id = $_SESSION["id"] ?? '';
 
-        $num = requestValue("num");
+        if ($id) {
+            $num = requestValue("num");
 
-        $data = $this->model->getContents($num);
-        $this->model->increaseViewCount($num, $id);
+            $data = $this->model->getContents($num);
 
-        if ($id)
+            $viewCheck = $this->model->getViewer($num, $id);
+            if (!($viewCheck))
+                $this->model->increaseViewCount($num, $id);
+
+            $count = $this->model->countViewer($num);
+
+//            $this->model->increaseViewCount($num, $id);
+
             require_once _VIEW . "BoardDetail.php";
-        else
+        } else
             goToPage("로그인한 사용자만 상세보기가 가능합니다", "/board");
     }
 

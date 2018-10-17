@@ -104,6 +104,10 @@
                     <a href="https://www.evernote.com/client/web" class="nav-link yjp" target="_blank">Evernote<i class="fas fa-external-link-alt float-right"></i></a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="https://github.com/must012" class="nav-link yjp" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+                </li>
+
             </ul>
         </nav>
 

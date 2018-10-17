@@ -228,6 +228,10 @@ td {
     border: 1px solid #BBBBBB;
 }
 
+.view-data, .view-data *{
+    cursor: default;
+}
+
 .panel-heading {
     border-bottom: 1px solid #BBBBBB;
 }

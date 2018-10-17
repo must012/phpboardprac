@@ -17,6 +17,7 @@
     <ul class="list-group">
         <?php foreach ($list as $value) : ?>
             <li class="list-group-item d-flex flex-row contents-list">
+
                 <!--                        제목 부분 div -->
                 <div class="list-title-wrapper col-md-6">
                     <div class="list-tag">

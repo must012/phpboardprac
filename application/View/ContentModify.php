@@ -1,57 +1,66 @@
 <!-- 컨텐츠의 내용을 수정하는 View -->
+<script type="text/javascript" src="../../public/js/ckeditor/ckeditor.js"></script>
 
-<!doctype html>
-<html lang="kr">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link href="../../public/css/Board.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #eeeeee;
+    }
 
-    <script type="text/javascript" src="../../public/js/ckeditor/ckeditor.js"></script>
+</style>
 
-    <link href="../../public/css/Board.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #eeeeee;
-        }
+<?php if (!isset($_SESSION["id"])) :
+    goToPage("로그인 한 사용자만 글쓰기 가능", "/board");
+else :?>
 
-        .row {
-            margin-top: 3.5rem;
-        }
-    </style>
+    <div class="row">
 
-    <title>글 수정</title>
-</head>
-<body>
-
-<header>
-    <nav class="navbar navbar-dark fixed-top">
-        <h2><a class="navbar-brand" href="/board">Sujae's PHP REPORT</a></h2>
-    </nav>
-</header>
-<div class="row">
-    <div class="container col-md-10">
-
-        <h2>Modify</h2>
-        <form action="/board/update" method="post">
-            <div class="form-group">
-                <label for="title">제목</label>
-                <input type="hidden" name="num" value="<?= $num ?>" readonly>
-                <input type="text" id="title" class="form-control" name="title" value="<?= $data["title"] ?>"
-                       required>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" name="contents" rows="10" required autofocus><?=
-                    $data["contents"] ?></textarea>
-            </div>
-
-            <button class="btn btn-lg blueBut" type="submit">수정완료</button>
-        </form>
-
+        <div class="subject col-md-8"><h2 class="d-inline-block">Modify</h2></div>
+        <div class="col-4 pl-5">
+            <button class="btn float-right write-btn blueBtn" onclick="location.href='/board'">
+                <i class="fas fa-list"> 목록</i>
+            </button>
+        </div>
     </div>
-</div>
-<script>
-    CKEDITOR.replace('contents');
-</script>
-</body>
-</html>
+
+    <hr style="background-color: whitesmoke">
+
+    <div class="panel-default">
+        <form action="/board/update" method="post">
+            <input type="hidden" name="num" value="<?= $num ?>" readonly>
+
+            <div class="panel-heading d-flex justify-content-between pt-2 pb-2">
+                <div class="contents-title col-3 pt-2">
+                    <div class="contents-writer">작성자 : <?= $_SESSION["name"] ?> </div>
+                </div>
+                <div class="action col-2 pt-md-1">
+                    <button class="btn float-right greBtn" type="submit"><i class="far fa-edit"> 수정완료</i></button>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="col-12 pt-2 form-group">
+
+                    <input type="text" id="title" class="form-control" name="title" aria-label="제목" placeholder="제목"
+                           value="<?= $data["title"] ?>"
+                           required>
+
+                    <hr style="background-color: whitesmoke">
+                    <div class="form-group">
+                            <textarea class="form-control" id="contents" name="contents" required><?= $data["contents"] ?></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <script type="text/javascript">
+
+        CKEDITOR.replace('contents');
+
+        CKEDITOR.instances.contents.updateElement();
+
+    </script>
+
+<?php endif; ?>

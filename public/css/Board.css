@@ -127,8 +127,6 @@ td {
     text-align: center;
 }
 
-
-
 /*
  * Board
  */
@@ -180,14 +178,14 @@ td {
 }
 
 .greBtn {
-    background-color: #00b894;
+    background-color: #5cb85c;
     color: white;
-    border-color: #00b894;
+    border-color: #4cae4c;
 }
 
 .greBtn:hover {
-    background-color: #008f6b;
-    border-color: #00bf97;
+    background-color: #4c974c;
+    border-color: #5cb85c;
 }
 
 .list-comment-wrapper{
@@ -205,9 +203,6 @@ td {
     font-size: 1.5rem;
 }
 
-.btn:hover {
-    cursor: pointer;
-}
 
 #nickName {
     font-family: 'Anton', sans-serif;
@@ -236,7 +231,7 @@ td {
     border-bottom: 1px solid #BBBBBB;
 }
 
-.panel-body {
+.comment-panel-body {
     min-height: 75vh;
 }
 

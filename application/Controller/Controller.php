@@ -41,13 +41,10 @@ class Controller
 
         $list = $this->model->callList($page, $endPage);
 
-//        $value = loginCheck();
-//        $loginCheck = $value[0];
-//        $name = $value[1];
-
         require_once _VIEW . "BoardList.php";
     }
 
+//    ========================= Main =======================
 //로그인을 하는 메서드
     function login()
     {
@@ -65,7 +62,9 @@ class Controller
                     $_SESSION["id"] = $id;
                     $_SESSION["name"] = $member["name"];
 
-                    header("Location: /board");
+                    echo "<script>
+                        history.back();
+                        </script>";
 
                 } else {
                     errorBack("비밀번호 확인");
@@ -84,7 +83,10 @@ class Controller
 
         unset($_SESSION["id"]);
         unset($_SESSION["name"]);
-        header("Location: /board");
+
+        echo "<script>
+        history.back();
+        </script>";
 
     }
 
@@ -142,35 +144,42 @@ class Controller
         }
     }
 
+    //    ========================= Member =======================
+
 //컨텐츠의 상세내용을 보여주는 메서드
-    function detail()
+    function detail($commentList)
     {
         $id = $_SESSION["id"] ?? '';
+        $name = $_SESSION["name"] ?? '';
+        $comments = $commentList;
+
+        $num = requestValue("num");
+
+        $data = $this->model->getContents($num);
+
+        $count = $this->model->getCountViewer($num);
 
         if ($id) {
-            $num = requestValue("num");
-
-            $data = $this->model->getContents($num);
 
             $viewCheck = $this->model->getViewer($num, $id);
+
             if (!($viewCheck))
                 $this->model->increaseViewCount($num, $id);
 
-            $count = $this->model->countViewer($num);
+        }
 
-//            $this->model->increaseViewCount($num, $id);
+        require_once _VIEW . "BoardDetail.php";
 
-            require_once _VIEW . "BoardDetail.php";
-        } else
-            goToPage("로그인한 사용자만 상세보기가 가능합니다", "/board");
     }
 
 //컨텐츠의 내용을 수정하는 View를 불러오고 데이터를 입력받는 메서드
     function contentModify($num)
     {
         $data = $this->model->getContents($num);
+        $id = $_SESSION["id"] ?? '';
 
-        if ($_SESSION["id"] == $data["writer"]) {
+
+        if ($id == $data["writer"]) {
             require_once _VIEW . "ContentModify.php";
             exit();
         } else {
@@ -193,8 +202,9 @@ class Controller
     function contentDelete($num)
     {
         $data = $this->model->getContents($num);
+        $id = $_SESSION["id"] ?? '';
 
-        if ($data["writer"] == $_SESSION["id"]) {
+        if ($data["writer"] == $id) {
             $this->model->deleteContents($num);
             goToPage("삭제 완료", "/board");
         } else
@@ -209,10 +219,11 @@ class Controller
             $wt = requestValue("writer");
             $tt = requestValue("title");
             $ct = requestValue("contents");
+            $nn = requestValue("nick");
 
-            if ($wt && $tt && $ct) {
+            if ($wt && $tt && $ct && $nn) {
 
-                $this->model->insertContents($wt, $tt, $ct);
+                $this->model->insertContents($wt, $tt, $ct, $nn);
 
                 header("Location: /board");
 
@@ -223,4 +234,7 @@ class Controller
             goToPage("로그인 한 사용자만 글 작성이 가능합니다.", "/board");
         }
     }
+
+//    ================= 댓글 관리
+
 }

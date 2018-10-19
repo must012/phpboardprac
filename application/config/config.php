@@ -8,12 +8,12 @@
 
 // 경로 정의
 
-define("_ROOT", 'C:/phpstudy/ReportMVC/');
+define("_ROOT", 'C:/phpstudy/ReportMVC');
 define("_PUBLIC", _ROOT . "/public");
 define("_APP", _ROOT . "/application");
-define("_MODEL", _APP . "/Model/");
+define("_MODEL", _APP . "/Model");
 define("_VIEW", _APP . "/View/");
-define("_CTR", _APP . "/Controller/");
+define("_CTR", _APP . "/Controller");
 define("_CONFIG", _APP . "/config/");
 
 // 변수 정의

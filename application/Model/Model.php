@@ -4,7 +4,7 @@ class Model
 {
     private $db;
 
-    public function __construct()
+    function __construct()
     {
         try {
             $this->db = new PDO("mysql:host=localhost;dbname=report", "root", "rootro");
@@ -15,6 +15,8 @@ class Model
             exit($e->getMessage());
         }
     }
+
+//  ================================= member =================================
 
     function signUp($id, $pw, $name)
     {
@@ -57,22 +59,23 @@ class Model
         }
     }
 
-// ----------------- 멤버 관련 ---------------------
 
-    function insertContents($wt, $tt, $ct)
+//  ================================= contents =================================
+    function insertContents($wt, $tt, $ct, $nn)
     {
         try {
-            $pstmt = $this->db->prepare("INSERT INTO board(writer, title, contents) VALUES (:wt, :tt, :ct)");
+            $pstmt = $this->db->prepare("INSERT INTO board(writer, title, contents, nick) VALUES (:wt, :tt, :ct, :nn)");
             $pstmt->bindValue(":wt", $wt, PDO::PARAM_STR);
             $pstmt->bindValue(":tt", $tt, PDO::PARAM_STR);
             $pstmt->bindValue(":ct", $ct, PDO::PARAM_STR);
+            $pstmt->bindValue(":nn", $nn, PDO::PARAM_STR);
             $pstmt->execute();
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
 
-    public function getContents($num)
+    function getContents($num)
     {
         try {
             $pstmt = $this->db->prepare("SELECT * FROM board WHERE num=:num");
@@ -97,7 +100,7 @@ class Model
         }
     }
 
-    public function deleteContents($num)
+    function deleteContents($num)
     {
         try {
             $pstmt = $this->db->prepare("DELETE FROM board WHERE num=:num");
@@ -108,10 +111,10 @@ class Model
         }
     }
 
-    public function callList($page)
+    function callList($page)
     {
         try {
-            $pstmt = $this->db->query("SELECT @ROWNUM := @ROWNUM + 1 AS NUM, num, writer, title, publish, view
+            $pstmt = $this->db->query("SELECT @ROWNUM := @ROWNUM + 1 AS NUM, num, writer, title, publish, view, nick
             FROM board, (SELECT @ROWNUM := 0) A 
             ORDER BY publish DESC 
             LIMIT " . ($page - 1) * COUNT_LIST . ", " . COUNT_LIST);
@@ -122,7 +125,7 @@ class Model
         }
     }
 
-    public function countContent()
+    function countContent()
     {
 //        게시물 갯수 체크
         try {
@@ -134,9 +137,24 @@ class Model
 
     }
 
-//----------------------------------    컨텐츠 관련
+    function getCommentCount($num)
+    {
+        try {
+            $pstmt = $this->db->prepare("SELECT COUNT(num) as commentcount FROM comment WHERE conNum = :num");
+            $pstmt->bindValue(":num", $num, PDO::PARAM_INT);
+            $pstmt->execute();
+            $result = $pstmt->fetchColumn();
+            return $result[0];
 
-    public function increaseViewCount($num, $id)
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+
+    }
+
+//  ================================= viewer =================================
+
+    function increaseViewCount($num, $id)
     {
 //        이 글을 본사람의 아이디를 조회 테이블에 넣음
         try {
@@ -151,7 +169,7 @@ class Model
         }
     }
 
-    public function countViewer($num)
+    function getCountViewer($num)
     {
 //        조회수 검색
         try {
@@ -167,7 +185,7 @@ class Model
         }
     }
 
-    public function getViewer($num, $viwere)
+    function getViewer($num, $viwere)
     {
 //        해당 게시글을 본 사람 검색
         try {
@@ -181,7 +199,5 @@ class Model
             exit($e->getMessage());
         }
     }
-
-//    ===================== 조회 관련
 
 }

@@ -4,10 +4,27 @@ body {
     background: #3c40c6 url("../img/stars.svg");
 }
 
+a:hover{
+    text-decoration: none;
+}
+
 .container-fluid{
     position: absolute;
     top: 25%;
 }
+
+.brand {
+    font-size: 3rem;
+    padding: 0;
+    color: #4c4c4c;
+}
+
+.brand:hover{
+    color: #4c4c4c;
+    text-decoration: none;
+    border-right: 0;
+}
+
 
 .btn{
     background-color: #6c5ce7;
@@ -19,6 +36,7 @@ body {
 .btn:hover{
     background-color: #5151a2;
     border-color: #6d6dc4;
+    cursor: pointer;
 }
 
 .form-signup {
@@ -38,7 +56,8 @@ body {
 }
 
 .form-signup{
-    background-color: white;
+    font-family: Anton, "Sandoll 미생", Sans-Serif, serif;
+    background-color: #EFEFEF;
     font-weight: 400;
     box-shadow: 1px 1px 10px 0 white;
 }
@@ -57,3 +76,6 @@ body {
     z-index: 2;
 }
 
+form button, input{
+    font-family: Anton;
+}

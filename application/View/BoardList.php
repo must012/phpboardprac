@@ -41,7 +41,7 @@
                 <!--                        작성자 및 날짜 div-->
                 <div class="list-data-wrapper col-md-4">
                     <div class='content-data'>
-                        <div class="writer-info"><p class="writer"><?= $value["writer"] ?></p>
+                        <div class="writer-info"><p class="writer"><?= $value["nick"] ?></p>
                             <div class="published"><?= $value["publish"] ?>
                             </div>
                         </div>

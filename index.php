@@ -38,12 +38,15 @@ if (count($paths) > 3) {
 $model = new Model();
 $controller = new Controller($model);
 
+$commentModel = new Model_Comment();
+$commentController = new Contoroller_Comment($commentModel);
+
 $value = loginCheck();
 $loginCheck = $value[0];
 $name = $value[1];
 
-if (!(($path == "/board/login") || ($path == "/board/logout") || ($path == "/write/update"))){
-    require_once _VIEW . "header.php";
+if (!(($path == "/board/login") || ($path == "/board/logout") || ($path == "/write/update") || ($path == "/signup"))){
+    require_once _VIEW . "sidebar.php";
 }
 
 switch ($path) {
@@ -73,7 +76,8 @@ switch ($path) {
         break;
 
     case '/board/detail':
-        $controller->detail();
+        $commentList = $commentController->getComments();
+        $controller->detail($commentList);
         break;
 
     case '/board/modify':
@@ -94,6 +98,10 @@ switch ($path) {
 
     case '/write/update':
         $controller->write();
+        break;
+
+    case '/comment/update' :
+        $commentController->insertComment();
         break;
 
 //        잘못치거나 board로 치면 항상 기본 페이지로

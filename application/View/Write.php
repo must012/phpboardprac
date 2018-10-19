@@ -11,18 +11,11 @@
     body {
         background-color: #eeeeee;
     }
-
-    /*.row {*/
-    /*margin-top: 2rem;*/
-    /*}*/
 </style>
 
 <?php if (!isset($_SESSION["id"])) :
     goToPage("로그인 한 사용자만 글쓰기 가능", "/board");
 else :?>
-
-<!--<div class="col-md-2 mr-md-4 col-sm-3"></div>-->
-
 
 <div class="row">
     <div class="subject col-md-8"><h2 class="d-inline-block">Write</h2></div>
@@ -40,7 +33,9 @@ else :?>
 
 <div class="panel-default">
     <form action="/write/update">
-        <input type="hidden" name="writer" value="<?= $_SESSION["id"] ?>" readonly>
+        <input type="hidden"  name="writer" value="<?= $_SESSION["id"] ?>" readonly>
+        <input type="hidden"  name="nick" value="<?= $_SESSION["name"] ?>" readonly>
+
         <div class="panel-heading d-flex justify-content-between pt-2 pb-2">
             <div class="contents-title col-3 pt-2">
                 <div class="contents-writer">작성자 : <?= $_SESSION["name"] ?> </div>

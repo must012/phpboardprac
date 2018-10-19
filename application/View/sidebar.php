@@ -39,7 +39,7 @@
 <div class="container-fluid">
     <div class="row">
         <nav class="sidebar col-sm-3 col-md-2 d-none d-sm-block pt-4 align-middle">
-            <div class="pb-2" style="text-align: center">
+            <div class="pb-2 text-center">
                 <h2><a class="brand" href="/board">PHP REPORT</a></h2></div>
 
             <div class="p-1 col-md-11 ml-auto mr-auto mt-3 mb-3">
@@ -98,6 +98,10 @@
 
                 <li class="nav-item">
                     <a href="http://bootstrap4.kr/" class="nav-link yjp" target="_blank">BootStrap<i class="fas fa-external-link-alt float-right"></i></a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="https://jsfiddle.net/coligo/49gptnad/" class="nav-link yjp" target="_blank">JSFiddle<i class="fas fa-external-link-alt float-right"></i></a>
                 </li>
 
                 <li class="nav-item">

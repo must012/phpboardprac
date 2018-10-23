@@ -80,36 +80,36 @@
             <ul class="nav pl-auto pr-0 ml-auto mr-0 flex-column">
 
                 <li class="nav-item">
-                    <a href="/board" class="nav-link yjp">Board</a>
+                    <a href="/board" class="nav-link side-nav side-nav-1">Board</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="https://www.yjp.ac.kr/portal/main/index_noie.jsp" class="nav-link yjp" target="_blank">
+                    <a href="https://www.yjp.ac.kr/portal/main/index_noie.jsp" class="nav-link side-nav" target="_blank">
                         YJP<i class="fas fa-external-link-alt float-right"></i></a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="https://yel.yjc.ac.kr/" class="nav-link yjp" target="_blank">YEL<i class="fas fa-external-link-alt float-right"></i></a>
+                    <a href="https://yel.yjc.ac.kr/" class="nav-link side-nav" target="_blank">YEL<i class="fas fa-external-link-alt float-right"></i></a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="https://fontawesome.com/" class="nav-link yjp" target="_blank">FontAwesome<i class="fas fa-external-link-alt float-right"></i></a>
+                    <a href="https://fontawesome.com/" class="nav-link side-nav" target="_blank">FontAwesome<i class="fas fa-external-link-alt float-right"></i></a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="http://bootstrap4.kr/" class="nav-link yjp" target="_blank">BootStrap<i class="fas fa-external-link-alt float-right"></i></a>
+                    <a href="http://bootstrap4.kr/" class="nav-link side-nav" target="_blank">BootStrap<i class="fas fa-external-link-alt float-right"></i></a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="https://jsfiddle.net/coligo/49gptnad/" class="nav-link yjp" target="_blank">JSFiddle<i class="fas fa-external-link-alt float-right"></i></a>
+                    <a href="https://jsfiddle.net/coligo/49gptnad/" class="nav-link side-nav" target="_blank">JSFiddle<i class="fas fa-external-link-alt float-right"></i></a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="https://www.evernote.com/client/web" class="nav-link yjp" target="_blank">Evernote<i class="fas fa-external-link-alt float-right"></i></a>
+                    <a href="https://www.evernote.com/client/web" class="nav-link side-nav" target="_blank">Evernote<i class="fas fa-external-link-alt float-right"></i></a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="https://github.com/must012" class="nav-link yjp" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+                    <a href="https://github.com/must012" class="nav-link side-nav" target="_blank"><i class="fab fa-github fa-2x"></i></a>
                 </li>
 
             </ul>

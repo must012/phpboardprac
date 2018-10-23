@@ -26,17 +26,19 @@
         <div class="view-data col-2 text-right">
             <i class="far fa-eye"></i>&nbsp;<?= $count ?>
         </div>
+
         <?php if ($id == $data["writer"]): ?>
             <div class="action col-3 pl-4 pt-2 float-right">
                 <button class="btn blueBtn" onclick="location.href= '/board/modify/<?= $num ?>'"><i
                             class="far fa-edit">수정</i>
                 </button>
-                <button class="btn ml-md-1 redBtn" onclick="checkDelete(<?= $data["num"] ?>)"><i
+                <button class="btn ml-md-1 redBtn" onclick="checkDeleteContents(<?= $data["num"] ?>)"><i
                             class="far fa-trash-alt">
                         삭제</i>
                 </button>
             </div>
         <?php endif; ?>
+
     </div>
 
     <div class="panel-body comment-panel-body pb-4 clearfix">
@@ -59,17 +61,25 @@
             <li class="list-group-item comments" id="<?= $comment["num"] ?>">
                 <div class="comment-head d-flex mb-2">
                     <div class="comment-data d-flex pl-0 col-6">
-                        <div class="writer pl-0 mr-3 col-5"><?= $comment["writer"] ?></div>
+                        <div class="writer pl-0 mr-3 col-5"><?= $comment["writerNick"] ?></div>
                         <div class="comment-created"><?= $comment["createDate"] ?></div>
                     </div>
 
-                    <?php if($name == $comment["writer"]): ?>
-                    <div class="comment-action col-6 d-flex flex-row-reverse">
-                        <div class="reply">
-                            <button class="btn redBtn"><i class="far fa-trash-alt"></i></button>
-                            <button class="btn blueBtn" style="width: 40px"><i class="fas fa-edit"></i></button>
+                    <?php if ($id == $comment["writer"]): ?>
+                        <div class="comment-action col-6 d-flex flex-row-reverse">
+                            <div class="reply">
+
+                                <button class="btn yellowBtn replyMessages" style="width:38px" id="<?= $comment["num"] ?>" title="대댓글작성">
+                                    <i class="fas fa-comment fa-sm"></i>
+                                </button>
+                                <button class="btn redBtn"
+                                        onclick="checkDeleteComment(<?= $comment["num"] ?>, '<?= $comment["writer"] ?>')" title="댓글삭제">
+                                    <i class="far fa-trash-alt fa-sm"></i>
+                                </button>
+                                <button class="btn blueBtn" style="width: 38px;" title="수정하기"><i class="fas fa-edit fa-sm"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
                     <?php endif; ?>
 
                 </div>
@@ -86,14 +96,14 @@
                     <div class="writer d-flex justify-content-between p-1">
                         <div class="comment-writer mt-1 ml-2"><?= $name ?></div>
                         <div class="mr-2">
-                            <button class="btn greBtn font-weight-bold" type="submit"><i class="far fa-edit"> 등록</i>
+                            <button class="btn greBtn newComment" type="submit" data-connum="<?= $num ?>"><i class="far fa-edit"> 등록</i>
                             </button>
                         </div>
                     </div>
 
                     <div class="panel-body mt-1">
-                    <textarea class="form-control" name="comment" id="comment" rows="3"
-                              placeholder="댓글을 작성해주세요!"></textarea>
+                    <textarea class="form-control" name="comment" id="comment<?= $num ?>" rows="3"
+                              placeholder="댓글을 작성해주세요!" required></textarea>
                     </div>
 
                 </form>
@@ -104,13 +114,57 @@
 
 <script>
 
-    function checkDelete(num) {
+    function checkDeleteContents(num) {
 
-        var con = confirm("정말 삭제 하시겠습니까?");
+        var con = confirm("삭제 하시겠습니까?");
         if (con) {
             location.href = "/board/delete/" + num;
         } else
             return;
     }
+
+    function checkDeleteComment(num, writer) {
+        var con = confirm("삭제 하시겠습니까?");
+
+        if ("<?= $_SESSION["id"] ?>" == writer)
+        {
+            if (con) {
+                location.href = "/comment/delete/" + num;
+            } else
+                return;
+        }
+    else
+        {
+            alert("본인이 작성한 댓글만 삭제할 수 있습니다.");
+            location.reload();
+        }
+    }
+
+        //$(".newComment").click(function (e) {
+        //    const conNum = $(this).data("connum");
+        //    const commentArea = $("#comment"+conNum);
+        //
+        //    e.preventDefault(); // form 의 submit - reload 를 막음
+        //    $.ajax({
+        //        method: "POST",
+        //        url: "/comment/update/" + conNum,
+        //        data:{
+        //            comment: commentArea.val(),
+        //            conNum: conNum,
+        //            writer: '<?//= $_SESSION["id"] ?>//',
+        //            writerNick: '<?//= $_SESSION["name"] ?>//'
+        //        },
+        //        dataType: "json",
+        //        success : function(data){
+        //            console.log(data.id)
+        //        },
+        //        error: function (request, status, error) {
+        //            console.log("실패");
+        //            console.log("에러명 : " + error);
+        //            console.log("상태 : " + status);
+        //        }
+        //    })
+        //
+        //});
 
 </script>

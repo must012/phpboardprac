@@ -114,8 +114,9 @@ class Model
     function callList($page)
     {
         try {
-            $pstmt = $this->db->query("SELECT @ROWNUM := @ROWNUM + 1 AS NUM, num, writer, title, publish, view, nick
-            FROM board, (SELECT @ROWNUM := 0) A 
+            $pstmt = $this->db->query("SELECT @ROWNUM := @ROWNUM + 1 AS listCount, COALESCE(countComments,0) as countComments, num, writer, title, publish, view, nick
+            FROM board as b LEFT JOIN (select @ROWNUM := 0, conNum, COUNT(*) as countComments from comment group by conNum) as c
+            ON b.num = c.conNum
             ORDER BY publish DESC 
             LIMIT " . ($page - 1) * COUNT_LIST . ", " . COUNT_LIST);
             $pstmt->execute();
@@ -173,13 +174,14 @@ class Model
     {
 //        조회수 검색
         try {
-            $pstmt = $this->db->prepare("SELECT COUNT(viewer) as viewercount FROM viewer WHERE contentsNum = :num");
+            $pstmt = $this->db->prepare("SELECT COUNT(*) as viewercount FROM viewer WHERE contentsNum = :num");
 
             $pstmt->bindValue(":num", $num, PDO::PARAM_INT);
             $pstmt->execute();
 
-            $return = $pstmt->fetch(PDO::FETCH_ASSOC);
-            return $return["viewercount"];
+            $return = $pstmt->fetchColumn();
+
+            return $return;
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
@@ -199,5 +201,4 @@ class Model
             exit($e->getMessage());
         }
     }
-
 }

@@ -71,14 +71,20 @@ h2{
     background-color: #0059ab;
 }
 
-.yjp{
+.side-nav{
     text-align: center;
     color: white;
+    font-weight: bold;
     text-decoration: none;
     transition: background-color 0.2s;
 }
 
-.yjp:hover{
+.side-nav.hover{
+    background-color: whitesmoke;
+    color: #3c40c6;
+}
+
+.side-nav:hover{
     background-color: whitesmoke;
 }
 
@@ -157,7 +163,7 @@ td {
 
 .whiteBtn {
     background-color: #FFFFFF;
-    color: black;
+    color: #666666;
     border-color: #909090;
 }
 
@@ -188,6 +194,17 @@ td {
     border-color: #5cb85c;
 }
 
+.yellowBtn {
+    background-color: rgba(255,238,51,0.99);
+    color: black;
+    border-color: #e0cf33;
+}
+
+.yellowBtn:hover {
+    background-color: #dac930;
+    border-color: #b1a12c;
+}
+
 .list-comment-wrapper{
     vertical-align: middle;
     text-align: center;
@@ -202,7 +219,6 @@ td {
     display: table-cell;
     font-size: 1.5rem;
 }
-
 
 #nickName {
     font-family: 'Anton', sans-serif;

@@ -104,6 +104,10 @@ switch ($path) {
         $commentController->insertComment();
         break;
 
+    case '/comment/delete' :
+        $commentController->deleteComments($num);
+        break;
+
 //        잘못치거나 board로 치면 항상 기본 페이지로
     case '/board':
     default:

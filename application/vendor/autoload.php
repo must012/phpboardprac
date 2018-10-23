@@ -8,9 +8,6 @@
 
 spl_autoload_register(function ($path){
 
-    echo "<script>
-    console.log('path: $path');
-    </script>";
     $className = strtolower($path);//클래스 이름 소문자로
     $className2 = preg_replace("/(model|application)(.*)/", "$1", $className);
     switch ($className2) {

@@ -155,10 +155,6 @@ class Controller
 
         $num = requestValue("num");
 
-        $data = $this->model->getContents($num);
-
-        $count = $this->model->getCountViewer($num);
-
         if ($id) {
 
             $viewCheck = $this->model->getViewer($num, $id);
@@ -167,6 +163,10 @@ class Controller
                 $this->model->increaseViewCount($num, $id);
 
         }
+
+        $data = $this->model->getContents($num);
+
+        $count = $this->model->getCountViewer($num);
 
         require_once _VIEW . "BoardDetail.php";
 

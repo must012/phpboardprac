@@ -21,7 +21,7 @@
                 <!--                        제목 부분 div -->
                 <div class="list-title-wrapper col-md-6">
                     <div class="list-tag">
-                        <span class="list-group-item-text article-id"><?= ($page - 1) * COUNT_LIST + $value["NUM"] ?></span>
+                        <span class="list-group-item-text article-id"><?= ($page - 1) * COUNT_LIST + $value["listCount"] ?> </span>
                         <a href="#" class="list-group-item-text item-tag label label-info"><i
                                     class="fa fa-database"></i> 태그 부분 </a>
                     </div>
@@ -30,11 +30,11 @@
                 </div>
 
                 <!--                        댓글 부분 div  -->
-                <div class="list-comment-wrapper col-md-2">
+                <div class="list-comment-wrapper col-md-2 d-flex">
 
-                    <div class="item-comment-icon col-md-5 float-left"><i class="far fa-comment-alt"></i>
+                    <div class="item-comment-icon col-md-5 pt-2"><i class="far fa-comment-alt"></i>
                     </div>
-                    <div class="item-comment-count col-md-5 mr-md-2 float-right"><p>1</p></div>
+                    <div class="item-comment-count col-md-5 pl-1 mr-md-2"><?= $value["countComments"] ?></div>
 
                 </div>
 
@@ -52,7 +52,6 @@
         <?php endforeach; ?>
     </ul>
 </div>
-
 
 <nav aria-label="pagination" class="pt-1">
     <ul class="pagination justify-content-center mb-0">
@@ -105,3 +104,7 @@
 
     </ul>
 </nav>
+
+<script>
+$(".side-nav-1").addClass("hover");
+</script>

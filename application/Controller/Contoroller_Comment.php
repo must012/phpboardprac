@@ -22,14 +22,18 @@ class Contoroller_Comment
             $conNum = requestValue("conNum");
             $rootComment = requestValue("rootComment");
             $comment = requestValue("comment");
-            $writer = $_SESSION["name"];
+            $writer = $_SESSION["id"];
+            $writerNick = $_SESSION["name"];
 
-            if(isset($rootComment))
-                $this->model->insertComment($conNum, $comment, $writer, $rootComment);
+            if (isset($rootComment))
+                $check = $this->model->insertComment($conNum, $comment, $writer, $writerNick, $rootComment);
             else
-                $this->model->insertComment($conNum, $comment, $writer);
+                $check = $this->model->insertComment($conNum, $comment, $writer, $writerNick);
 
-            echo "<script> location.href = '/board/detail?num=$conNum'; </script>";
+            if ($check == 1)
+                echo "<script>location.href = '/board/detail?num=$conNum'; </script>";
+            else
+                echo "<script>alert('댓글 등록 실패!'); location.href = '/board/detail?num=$conNum'; </script>";
 
         } else {
             errorBack("로그인 한 사용자만 댓글을 등록할 수 있습니다.");
@@ -43,11 +47,14 @@ class Contoroller_Comment
         return $this->model->getComments($num);
     }
 
-    function deleteComments($id, $num){
-        if($_SESSION["id"]==$id){
+    function deleteComments($num)
+    {
+        $check = $this->model->deleteComment($num);
 
-        }else
-            errorBack("본인 댓글만 삭제할 수 있습니다.");
+        if ($check == 1)
+            errorBack("삭제 완료");
+        else
+            errorBack("삭제 실패");
     }
 
 }

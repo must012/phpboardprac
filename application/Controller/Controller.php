@@ -26,6 +26,7 @@ class Controller
     function board($loginCheck)
     {
         $this->loginCheck = $loginCheck;
+
         $totalPage = floor($this->num[0] / COUNT_LIST);
 
         $totalPage = ($this->num[0] % COUNT_LIST > 0) ? $totalPage + 1 : $totalPage;
@@ -212,7 +213,7 @@ class Controller
     }
 
 //글을 작성하는 메서드
-    function write()
+    function write($fileId = null)
     {
 
         if (isset($_SESSION["id"])) {
@@ -220,10 +221,15 @@ class Controller
             $tt = requestValue("title");
             $ct = requestValue("contents");
             $nn = requestValue("nick");
+            $file = $fileId;
 
             if ($wt && $tt && $ct && $nn) {
 
-                $this->model->insertContents($wt, $tt, $ct, $nn);
+                if ($file) {
+                    $this->model->insertContents($wt, $tt, $ct, $nn, $file);
+                } else {
+                    $this->model->insertContents($wt, $tt, $ct, $nn);
+                }
 
                 header("Location: /board");
 

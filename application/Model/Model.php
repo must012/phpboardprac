@@ -4,16 +4,9 @@ class Model
 {
     private $db;
 
-    function __construct()
+    function __construct($setDb)
     {
-        try {
-            $this->db = new PDO("mysql:host=localhost;dbname=report", "root", "rootro");
-
-            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        } catch (PDOException $e) {
-            exit($e->getMessage());
-        }
+        $this->db = $setDb;
     }
 
 //  ================================= member =================================
@@ -61,14 +54,20 @@ class Model
 
 
 //  ================================= contents =================================
-    function insertContents($wt, $tt, $ct, $nn)
+    function insertContents($wt, $tt, $ct, $nn, $file = null)
     {
         try {
-            $pstmt = $this->db->prepare("INSERT INTO board(writer, title, contents, nick) VALUES (:wt, :tt, :ct, :nn)");
+            $pstmt = $this->db->prepare("INSERT INTO board(writer, title, contents, nick, firstFile) VALUES (:wt, :tt, :ct, :nn, :ff)");
             $pstmt->bindValue(":wt", $wt, PDO::PARAM_STR);
             $pstmt->bindValue(":tt", $tt, PDO::PARAM_STR);
             $pstmt->bindValue(":ct", $ct, PDO::PARAM_STR);
             $pstmt->bindValue(":nn", $nn, PDO::PARAM_STR);
+            if ($file) {
+                $pstmt->bindValue(":ff", $file, PDO::PARAM_STR);
+            } else {
+                $pstmt->bindValue(":ff", $file, PDO::PARAM_NULL);
+            }
+
             $pstmt->execute();
         } catch (PDOException $e) {
             exit($e->getMessage());

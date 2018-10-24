@@ -10,16 +10,9 @@ class Model_Comment
 {
     private $db;
 
-    function __construct()
+    function __construct($setDb)
     {
-        try {
-            $this->db = new PDO("mysql:host=localhost;dbname=report", "root", "rootro");
-
-            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        } catch (PDOException $e) {
-            exit($e->getMessage());
-        }
+        $this->db = $setDb;
     }
 
     function insertComment($conNum, $comment, $writer, $writerNick, $rootComment = null)

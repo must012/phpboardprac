@@ -65,22 +65,24 @@
                         <div class="comment-created"><?= $comment["createDate"] ?></div>
                     </div>
 
-                    <?php if ($id == $comment["writer"]): ?>
+
                         <div class="comment-action col-6 d-flex flex-row-reverse">
                             <div class="reply">
 
                                 <button class="btn yellowBtn replyMessages" style="width:38px" id="<?= $comment["num"] ?>" title="대댓글작성">
                                     <i class="fas fa-comment fa-sm"></i>
                                 </button>
+                                <?php if ($id == $comment["writer"]): ?>
                                 <button class="btn redBtn"
                                         onclick="checkDeleteComment(<?= $comment["num"] ?>, '<?= $comment["writer"] ?>')" title="댓글삭제">
                                     <i class="far fa-trash-alt fa-sm"></i>
                                 </button>
                                 <button class="btn blueBtn" style="width: 38px;" title="수정하기"><i class="fas fa-edit fa-sm"></i>
                                 </button>
+                                <?php endif; ?>
                             </div>
                         </div>
-                    <?php endif; ?>
+
 
                 </div>
                 <div class="comment-content"><?= $comment["comment"] ?></div>
@@ -139,6 +141,10 @@
             location.reload();
         }
     }
+
+    $(".replyMessages").click(function (e) {
+        const 
+    })
 
         //$(".newComment").click(function (e) {
         //    const conNum = $(this).data("connum");

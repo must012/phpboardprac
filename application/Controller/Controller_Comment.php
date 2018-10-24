@@ -6,7 +6,7 @@
  * Time: 오전 10:51
  */
 
-class Contoroller_Comment
+class Controller_Comment
 {
     private $model;
 

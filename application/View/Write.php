@@ -32,7 +32,7 @@ else :?>
     <hr style="background-color: whitesmoke">
 
     <div class="panel-default">
-        <form action="/write/update" enctype="multipart/form-data">
+        <form action="/write/update" enctype="multipart/form-data" method="post" onsubmit="return checkExt(this)">
             <input type="hidden" name="writer" value="<?= $_SESSION["id"] ?>" readonly>
             <input type="hidden" name="nick" value="<?= $_SESSION["name"] ?>" readonly>
 
@@ -61,23 +61,40 @@ else :?>
                 </div>
             </div>
 
-            <div class="panel-footer">
-                <div class="col-11 input-group mb-3 m-auto pl-0">
-                    <div class="btn-upload">
-                        <button class="btn btn-outline-secondary">upload</button>
+            <div class="panel-footer col-11 p-0 m-auto">
+                <div class="upfile-box col-12 input-group p-0">
+                    <div class="input-group-append file-text pt-2 pl-1 pr-1">
+                        <span class="input-group-text">업로드</span>
                     </div>
-                    <div class="file border col-11">
-                        <input type="file" class="custom-file-input" id="uploadFile">
-                        <label class="custom-file-label" for="uploadFile">파일 검색</label>
+                    <div class="col-11 p-0">
+                        <input type="file" class="btn col-12 custom-file-input border border-primary" id="upFile"
+                               name="upFile">
                     </div>
-
                 </div>
             </div>
+        </form>
     </div>
-    </form>
 
 
     <script type="text/javascript">
+        function checkExt(file) {
+            var path = document.getElementById("upFile").value;
+            if (path) {
+                if (path == "") {
+                    alert("파일 선택이 잘못 되었습니다.");
+                    return false;
+                }
+            }
+
+            var pos = path.index(".");
+            if (pos < 0) {
+                alert("확장자가 없는 파일");
+                return false;
+            }
+
+            return true;
+        }
+
 
         CKEDITOR.replace('contents');
 

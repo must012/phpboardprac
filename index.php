@@ -26,7 +26,6 @@ $num = '';
         console.log("path type : <?= gettype($path) ?>");
         console.log("path value : <?= $path ?> ");
     </script>
-
 <?php
 
 //매개 변수값은 따로 저장
@@ -34,12 +33,16 @@ if (count($paths) > 3) {
     $num = array_pop($paths);
     $path = implode("/", $paths);
 }
+$db = returnDB();
 
-$model = new Model();
+$model = new Model($db);
 $controller = new Controller($model);
 
-$commentModel = new Model_Comment();
-$commentController = new Contoroller_Comment($commentModel);
+$commentModel = new Model_Comment($db);
+$commentController = new Controller_Comment($commentModel);
+
+$fileModel = new Model_Files($db);
+$fileController = new Controller_Files($fileModel);
 
 $value = loginCheck();
 $loginCheck = $value[0];
@@ -97,7 +100,8 @@ switch ($path) {
         break;
 
     case '/write/update':
-        $controller->write();
+        $fileId = $fileController->uploadFile();
+        $controller->write($fileId);
         break;
 
     case '/comment/update' :
@@ -108,7 +112,7 @@ switch ($path) {
         $commentController->deleteComments($num);
         break;
 
-//        잘못치거나 board로 치면 항상 기본 페이지로
+    //  잘못치거나 board로 치면 항상 기본 페이지로
     case '/board':
     default:
         $controller->board($loginCheck);

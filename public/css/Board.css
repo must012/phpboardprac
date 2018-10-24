@@ -81,7 +81,7 @@ h2{
 
 .side-nav.hover{
     background-color: whitesmoke;
-    color: #3c40c6;
+    color: #0059ab;
 }
 
 .side-nav:hover{
@@ -253,4 +253,17 @@ td {
 
 /*
  * Detail
+ */
+
+ .file-text{
+     background-color: whitesmoke;
+     font-family: Anton, Sans-Serif, serif;
+ }
+
+ .upfile-box{
+     border-radius: 6px;
+     border: 1px solid #d3d3d3;
+ }
+/*
+ * Write
  */

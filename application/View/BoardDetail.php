@@ -52,40 +52,79 @@
 </div>
 
 <!-- 댓글 부분 -->
-<div class="panel panel-default mt-4">
+<div class="panel panel-default mt-4" id="comments">
 
     <ul class="list-group">
         <li class="list-group-item comment-count border-0">댓글 <?= count($comments) ?></li>
 
         <?php foreach ($comments as $comment): ?>
+
             <li class="list-group-item comments" id="<?= $comment["num"] ?>">
+
                 <div class="comment-head d-flex mb-2">
-                    <div class="comment-data d-flex pl-0 col-6">
-                        <div class="writer pl-0 mr-3 col-5"><?= $comment["writerNick"] ?></div>
-                        <div class="comment-created"><?= $comment["createDate"] ?></div>
+                    <div class="comment-data d-flex pl-0 col-9">
+                        <?php if(isset($comment["rootWriter"])): ?>
+                        <div class="col-2 pr-0"><?= $comment["rootWriter"] ?> //</div>
+                        <?php endif ?>
+                        <div class="writer pl-0 mr-3 col-5">
+                            <?= $comment["writerNick"] ?></div>
+                        <div class="comment-created d-flex col-5 flex-row-reverse"><?= $comment["createDate"] ?></div>
                     </div>
 
-
-                        <div class="comment-action col-6 d-flex flex-row-reverse">
+                    <?php if ($id): ?>
+                        <div class="comment-action col-3 d-flex flex-row-reverse">
                             <div class="reply">
 
-                                <button class="btn yellowBtn replyMessages" style="width:38px" id="<?= $comment["num"] ?>" title="대댓글작성">
+                                <button class="btn yellowBtn replyMessages" style="width:38px"
+                                        id="btn-<?= $comment["num"] ?>" title="대댓글작성">
                                     <i class="fas fa-comment fa-sm"></i>
                                 </button>
                                 <?php if ($id == $comment["writer"]): ?>
-                                <button class="btn redBtn"
-                                        onclick="checkDeleteComment(<?= $comment["num"] ?>, '<?= $comment["writer"] ?>')" title="댓글삭제">
-                                    <i class="far fa-trash-alt fa-sm"></i>
-                                </button>
-                                <button class="btn blueBtn" style="width: 38px;" title="수정하기"><i class="fas fa-edit fa-sm"></i>
-                                </button>
+                                    <button class="btn redBtn"
+                                            onclick="checkDeleteComment(<?= $comment["num"] ?>, '<?= $comment["writer"] ?>')"
+                                            title="댓글삭제">
+                                        <i class="far fa-trash-alt fa-sm"></i>
+                                    </button>
+                                    <button class="btn blueBtn" style="width: 38px;" title="수정하기"><i
+                                                class="fas fa-edit fa-sm"></i>
+                                    </button>
                                 <?php endif; ?>
                             </div>
                         </div>
-
+                    <?php endif; ?>
 
                 </div>
+
+                <?php if(isset($comment["rootWriter"])): ?>
+                    <div class="comment-content pl-3"><?= $comment["comment"] ?></div>
+                <?php else: ?>
                 <div class="comment-content"><?= $comment["comment"] ?></div>
+                <?php endif; ?>
+
+
+            </li>
+
+            <li class="list-group-item p-1 comment-reply-<?= $comment["num"] ?>" style="display: none">
+                <form action="/comment/update" method="post">
+
+                    <input type="hidden" name="conNum" value="<?= $num ?>">
+                    <input type="hidden" name="rootComment" value="<?= $comment["num"] ?>">
+                    <input type="hidden" name="rootWriter" value="<?= $comment["writer"] ?>">
+                    <div class="writer d-flex justify-content-between p-1">
+                        <div class="comment-writer mt-1 ml-2"><?= $name ?></div>
+                        <div class="mr-2">
+                            <button class="btn greBtn newComment" type="submit" data-connum="<?= $num ?>"><i
+                                        class="far fa-edit"> 등록</i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="panel-body mt-1">
+                    <textarea class="form-control" name="comment" id="comment<?= $num ?>" rows="3"
+                              placeholder="댓글을 작성해주세요!" required></textarea>
+                    </div>
+
+                </form>
             </li>
         <?php endforeach; ?>
 
@@ -98,7 +137,8 @@
                     <div class="writer d-flex justify-content-between p-1">
                         <div class="comment-writer mt-1 ml-2"><?= $name ?></div>
                         <div class="mr-2">
-                            <button class="btn greBtn newComment" type="submit" data-connum="<?= $num ?>"><i class="far fa-edit"> 등록</i>
+                            <button class="btn greBtn newComment" type="submit" data-connum="<?= $num ?>"><i
+                                        class="far fa-edit"> 등록</i>
                             </button>
                         </div>
                     </div>
@@ -128,49 +168,54 @@
     function checkDeleteComment(num, writer) {
         var con = confirm("삭제 하시겠습니까?");
 
-        if ("<?= $_SESSION["id"] ?>" == writer)
-        {
+        if ("<?= $id ?>" == writer) {
             if (con) {
                 location.href = "/comment/delete/" + num;
             } else
                 return;
         }
-    else
-        {
+        else {
             alert("본인이 작성한 댓글만 삭제할 수 있습니다.");
             location.reload();
         }
     }
 
-    $(".replyMessages").click(function (e) {
-        const 
-    })
+    // language=JQuery-CSS
 
-        //$(".newComment").click(function (e) {
-        //    const conNum = $(this).data("connum");
-        //    const commentArea = $("#comment"+conNum);
-        //
-        //    e.preventDefault(); // form 의 submit - reload 를 막음
-        //    $.ajax({
-        //        method: "POST",
-        //        url: "/comment/update/" + conNum,
-        //        data:{
-        //            comment: commentArea.val(),
-        //            conNum: conNum,
-        //            writer: '<?//= $_SESSION["id"] ?>//',
-        //            writerNick: '<?//= $_SESSION["name"] ?>//'
-        //        },
-        //        dataType: "json",
-        //        success : function(data){
-        //            console.log(data.id)
-        //        },
-        //        error: function (request, status, error) {
-        //            console.log("실패");
-        //            console.log("에러명 : " + error);
-        //            console.log("상태 : " + status);
-        //        }
-        //    })
-        //
-        //});
+    $(".replyMessages").click(function (e) {
+        var num = $(this).attr("id");
+        num = num.split('-').pop();
+        const $target = $(".comment-reply-" + num);
+
+        $target.slideToggle(200);
+
+    });
+
+    //$(".newComment").click(function (e) {
+    //    const conNum = $(this).data("connum");
+    //    const commentArea = $("#comment"+conNum);
+    //
+    //    e.preventDefault(); // form 의 submit - reload 를 막음
+    //    $.ajax({
+    //        method: "POST",
+    //        url: "/comment/update/" + conNum,
+    //        data:{
+    //            comment: commentArea.val(),
+    //            conNum: conNum,
+    //            writer: '<?//= $_SESSION["id"] ?>//',
+    //            writerNick: '<?//= $_SESSION["name"] ?>//'
+    //        },
+    //        dataType: "json",
+    //        success : function(data){
+    //            console.log(data.id)
+    //        },
+    //        error: function (request, status, error) {
+    //            console.log("실패");
+    //            console.log("에러명 : " + error);
+    //            console.log("상태 : " + status);
+    //        }
+    //    })
+    //
+    //});
 
 </script>

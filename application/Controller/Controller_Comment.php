@@ -24,9 +24,10 @@ class Controller_Comment
             $comment = requestValue("comment");
             $writer = $_SESSION["id"];
             $writerNick = $_SESSION["name"];
+            $rootWriter = requestValue("rootWriter");
 
-            if (isset($rootComment))
-                $check = $this->model->insertComment($conNum, $comment, $writer, $writerNick, $rootComment);
+            if (isset($rootComment) && isset($rootWriter))
+                $check = $this->model->insertComment($conNum, $comment, $writer, $writerNick, $rootComment, $rootWriter);
             else
                 $check = $this->model->insertComment($conNum, $comment, $writer, $writerNick);
 

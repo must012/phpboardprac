@@ -27,14 +27,15 @@
                     </div>
                     <p class="list-title detail"
                        onclick="location.href = '/board/detail?num=<?= $value["num"] ?>'"><?= $value["title"] ?></p>
+
                 </div>
 
                 <!--                        댓글 부분 div  -->
-                <div class="list-comment-wrapper col-md-2 d-flex">
+                <div class="list-comment-wrapper col-md-2 d-flex" onclick="location.href = '/board/detail?num=<?= $value["num"] ?>#comments'">
 
-                    <div class="item-comment-icon col-md-5 pt-2"><i class="far fa-comment-alt"></i>
+                    <div class="item-comment-icon col-md-5 p-0 pt-2"><i class="far fa-comment-alt"></i>
                     </div>
-                    <div class="item-comment-count col-md-5 pl-1 mr-md-2"><?= $value["countComments"] ?></div>
+                    <div class="item-comment-count col-md-4 p-0"><?= $value["countComments"] ?></div>
 
                 </div>
 

@@ -220,6 +220,10 @@ td {
     font-size: 1.5rem;
 }
 
+.item-comment-count:hover{
+    cursor: pointer;
+}
+
 #nickName {
     font-family: 'Anton', sans-serif;
     font-size: 1.2rem ;

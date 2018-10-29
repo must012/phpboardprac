@@ -89,6 +89,7 @@
 
         <?php if ($endPage < $totalPage) : ?>
             <li class="page-item"><a class="page-link" href="/board?page=<?= $endPage + 1 ?>">&raquo;</a>
+
             </li>
         <?php else : ?>
             <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
@@ -107,5 +108,19 @@
 </nav>
 
 <script>
-$(".side-nav-1").addClass("hover");
+    var $link;
+    var $main;
+
+    $('.side-nav').click(function() {
+        $('.side-nav').removeClass('hover');
+        $(this).addClass('hover');
+    });
+
+    $('.nav-item a').click(function (e) {
+        // e.preventDefault();
+        $link = $(this).attr('href');
+        $main.attr()
+    });
+
+// $(".side-nav-1").addClass("hover");
 </script>

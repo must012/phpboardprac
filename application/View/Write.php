@@ -61,15 +61,19 @@ else :?>
                 </div>
             </div>
 
-            <div class="panel-footer col-11 p-0 m-auto">
-                <div class="upfile-box col-12 input-group p-0">
+            <div class="panel-footer col-12 m-auto">
+                <div id="upfile-box" class="col-12 input-group p-0">
                     <div class="input-group-append file-text pt-2 pl-1 pr-1">
                         <span class="input-group-text">업로드</span>
                     </div>
                     <div class="col-11 p-0">
                         <input type="file" class="btn col-12 custom-file-input border border-primary" id="upFile"
-                               name="upFile">
+                               name="upFiles[]" multiple>
                     </div>
+                </div>
+
+                <div id="upfile-drag-box" class="col-12 mt-3 text-center">
+                    Drag & Drop!
                 </div>
             </div>
         </form>
@@ -77,6 +81,33 @@ else :?>
 
 
     <script type="text/javascript">
+        $(function () {
+            var drop = $("#upfile-drag-box");
+            drop.on('dragenter', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                $(this).css('border', '2px dotted #0059ab');
+            });
+            drop.on('dragleave', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                $(this).css('border', '2px dotted red');
+            });
+            drop.on('dragover', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            });
+            drop.on('drop', function (e) {
+                e.preventDefault();
+                $(this).css('border', '2px dotted black');
+                var files = e.originalEvent.dataTransfer.files;
+                if (files.length < 1)
+                    return;
+                F_FileMultiUpload(files, obj);
+            });
+        });
+
+
         function checkExt(file) {
             var path = document.getElementById("upFile").value;
             if (path) {
@@ -96,7 +127,10 @@ else :?>
         }
 
 
-        CKEDITOR.replace('contents');
+        CKEDITOR.replace('contents',{
+            filebrowserImageUploadUrl: "/application/View/upload.php?type=image",
+            extraPlugins: 'uploadimage'
+        });
 
         CKEDITOR.instances.contents.updateElement();
 

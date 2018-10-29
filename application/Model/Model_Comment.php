@@ -15,13 +15,14 @@ class Model_Comment
         $this->db = $setDb;
     }
 
-    function insertComment($conNum, $comment, $writer, $writerNick, $rootComment = null, $rootWriter = null)
+    function insertComment($conNum, $comment, $writer, $writerNick, $rootComment = null, $rootWriter = null, $parentComment = null)
     {
 //        connum = 게시글 번호, rootcomment = 대댓글 대상, comment = 내용, writer = 작성자
 //        sequence = 그 글에서의 댓글 번호
         try {
-            $pstmt = $this->db->prepare("INSERT INTO comment(conNum, rootComment, rootWriter, sequence, comment, writer, writerNick) VALUES(:conNum1, :rootComment, :rootWriter,
-                                                    (SELECT (COUNT(num)+1) FROM comment as a WHERE conNum = :conNum2), :comment, :writer, :writerNick)");
+            $pstmt = $this->db->prepare("INSERT INTO comment(conNum, rootComment, rootWriter, parentComment,  sequence, comment, writer, writerNick) 
+            VALUES(:conNum1, :rootComment, :rootWriter, :parentComment, (SELECT (COUNT(num)+1) FROM comment as a WHERE conNum = :conNum2),
+            :comment, :writer, :writerNick)");
 
             $pstmt->bindValue(":conNum1", $conNum, PDO::PARAM_INT);
 
@@ -32,6 +33,13 @@ class Model_Comment
                 $pstmt->bindValue(":rootComment", $rootComment, PDO::PARAM_INT);
                 $pstmt->bindValue(":rootWriter", $rootWriter, PDO::PARAM_STR);
             }
+
+            if (!($parentComment)) {
+                $pstmt->bindValue(":parentComment", $parentComment, PDO::PARAM_NULL);
+            } else {
+                $pstmt->bindValue(":parentComment", $parentComment, PDO::PARAM_INT);
+            }
+
             $pstmt->bindValue(":conNum2", $conNum, PDO::PARAM_INT);
             $pstmt->bindValue(":comment", $comment, PDO::PARAM_STR);
             $pstmt->bindValue(":writer", $writer, PDO::PARAM_STR);
@@ -47,7 +55,7 @@ class Model_Comment
     function getComments($conNum)
     {
         try {
-            $pstmt = $this->db->prepare("SELECT * FROM comment WHERE conNum = :conNum ORDER BY IF(ISNULL(rootComment), num, rootComment), sequence");
+            $pstmt = $this->db->prepare("SELECT * FROM comment WHERE conNum = :conNum ORDER BY IF(ISNULL(rootComment), num, rootComment), createDate");
             $pstmt->bindValue(":conNum", $conNum, PDO::PARAM_INT);
             $pstmt->execute();
 

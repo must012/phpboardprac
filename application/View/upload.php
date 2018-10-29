@@ -21,9 +21,6 @@ if ($_FILES['upload']) {
     $upLoadPath = "C:\phpstudy\ReportMVC\img";
     $upLoadSrc = "\img\\";
 
-//    $upLoadPath = "/../Img";
-//    $upLoadSrc = "../Img";
-
     $http = 'http'.((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on')?'s':'').'://';
 
     if($ext=='jpg' or $ext=='gif' or $ext=='png' or $ext=='jpeg'){

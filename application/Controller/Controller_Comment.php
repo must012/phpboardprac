@@ -21,13 +21,15 @@ class Controller_Comment
         if (isset($_SESSION["id"])) {
             $conNum = requestValue("conNum");
             $rootComment = requestValue("rootComment");
+            $parentComment = requestValue("parentComment");
             $comment = requestValue("comment");
             $writer = $_SESSION["id"];
             $writerNick = $_SESSION["name"];
             $rootWriter = requestValue("rootWriter");
 
-            if (isset($rootComment) && isset($rootWriter))
-                $check = $this->model->insertComment($conNum, $comment, $writer, $writerNick, $rootComment, $rootWriter);
+
+            if (isset($rootComment) && isset($rootWriter) && isset($parentComment))
+                $check = $this->model->insertComment($conNum, $comment, $writer, $writerNick, $rootComment, $rootWriter, $parentComment);
             else
                 $check = $this->model->insertComment($conNum, $comment, $writer, $writerNick);
 

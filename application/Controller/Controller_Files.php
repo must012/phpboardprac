@@ -15,38 +15,82 @@ class Controller_Files
         $this->model = $model;
     }
 
-    function uploadFile()
+    function uploadFile($conNum)
     {
-        if (isset($_FILES["upFile"]) && $_FILES["upFile"]["name"] != '') {
 
+        if (isset($_FILES["upFiles"]) && $_FILES["upFiles"]["name"] != '') {
             $writer = requestValue("writer");
-
-            $originFileName = $_FILES["upFile"]["name"];
-            $tmpName = $_FILES["upFile"]["tmp_name"];
-            $fileId = md5($_FILES["upFile"]["tmp_name"]);
-
-            $ext = substr(strrchr($_FILES["upFile"]["name"], '.'), 1);
-            $ext = strtolower($ext);
-
             $checkExt = array("html", "htm", "php", "php3", "inc", "pl", "cgi", "txt", "TXT", "asp", "jsp", "phtml", "js", "");
+            $arrayCount = count($_FILES["upFiles"]["name"]);
 
-            if (in_array($ext, $checkExt)) {
-                echo "<script>alert('업로드를 할 수 없는 파일형식입니다.');	history.back();</script>";
-                exit;
-            }
+            for ($i = 0; $i < $arrayCount; $i++) {
 
-            $saveFileName = $writer . "_" . date("YmdHis") . "_" . str_replace(" ", "_", $_FILES["upFile"]["name"]);
-            $upLoadPath = "../Files";
+                $originFileName = $_FILES["upFiles"]["name"][$i];
+                $tmpName = $_FILES["upFiles"]["tmp_name"][$i];
+                $fileId = md5($tmpName);
 
-            if (move_uploaded_file($_FILES["upFile"]["tmp_name"], $upLoadPath . "/" . iconv("UTF-8", "EUC-KR", $saveFileName))) {
+                $ext = substr(strrchr($originFileName, '.'), 1);
+                $ext = strtolower($ext);
 
-                $daoCheck = $this->model->uploadFile($fileId, $originFileName, $tmpName, $writer);
-                if ($daoCheck == 1) {
-                    return $fileId;
+                if (in_array($ext, $checkExt)) {
+                    echo "<script>alert('업로드를 할 수 없는 파일형식입니다.');	history.back();</script>";
+                    exit;
+                };
+
+                $saveFileName = $writer . "_" . date("YmdHis") . "_" . str_replace(" ", "_", $_FILES["upFiles"]["name"][$i]);
+                $upLoadPath = "../Files";
+
+                if (move_uploaded_file($_FILES["upFiles"]["tmp_name"][$i], $upLoadPath . "/" . iconv("UTF-8", "EUC-KR", $saveFileName))) {
+
+                    $this->model->uploadFile($fileId, $originFileName, $saveFileName, $tmpName, $writer, $conNum);
+
+                } else {
+                    errorBack("업로드 실패!");
                 }
-            } else {
-                errorBack("업로드 실패!");
             }
+
+        }
+
+        header("Location: /board");
+    }
+
+    function getFiles()
+    {
+        $num = requestValue("num");
+        return $this->model->getFiles($num);
+    }
+
+    function downloadFile()
+    {
+        $id = requestValue("id");
+        $data = $this->model->getFiles($id, "fileId");
+        print_r($data);
+        $fileName = $data[0]["saveName"];
+        $downloadName = $data[0]["originName"];
+
+        $downloadPath = "../Files/";
+        $fileSize = filesize($downloadPath . $fileName);
+        if (is_ie()) $fileName = utf2euc($fileName);
+
+        if (is_file($downloadPath . $fileName)) {
+            header("Pragma: no-cache");
+            header("Expires: 0");
+            header("Content-Type: application/octet-stream");
+            header("Content-Disposition: attachment; filename=\"$downloadName\"");
+            header("Content-Transfer-Encoding: binary");
+            header("Content-Length: $fileSize");
+
+            readfile($downloadPath . $fileName);
+
+            $fp = fopen($downloadPath . $fileName, "r");
+            if (!fpassthru($fp))// 서버부하를 줄이려면 print 나 echo 또는 while 문을 이용한 기타 보단 이방법이...
+            {
+                fclose($fp);
+            }
+
+        } else {
+            echo "해당 파일이나 경로가 존재하지 않습니다.";
+            exit;
         }
     }
 

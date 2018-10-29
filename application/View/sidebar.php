@@ -65,7 +65,7 @@
                     </form>
                 <?php else : ?>
                     <div class="mb-md-2 row" id="uName" style="color: #FFFFFF">
-                        <div class="col-6 align-middle ml-4 pt-2"><p id="nickName"><?= $name ?> 님</p></div>
+                        <div class="col-md-6 col-sm-6 align-middle ml-4 pt-md-2 p-sm-0"><p id="nickName"><?= $name ?> 님</p></div>
                         <div class="col-4 d-flex flex-column">
                             <div class="pb-1"><i class="fas fa-sign-out-alt"
                                                  onclick="location.href='/board/logout'"></i></div>
@@ -81,6 +81,10 @@
 
                 <li class="nav-item">
                     <a href="/board" class="nav-link side-nav side-nav-1">Board</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/board" class="nav-link side-nav side-nav-2">Board2</a>
                 </li>
 
                 <li class="nav-item">

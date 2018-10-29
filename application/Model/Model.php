@@ -54,21 +54,19 @@ class Model
 
 
 //  ================================= contents =================================
-    function insertContents($wt, $tt, $ct, $nn, $file = null)
+    function insertContents($wt, $tt, $ct, $nn)
     {
         try {
-            $pstmt = $this->db->prepare("INSERT INTO board(writer, title, contents, nick, firstFile) VALUES (:wt, :tt, :ct, :nn, :ff)");
+            $pstmt = $this->db->prepare("INSERT INTO boards(writer, title, contents, nick) VALUES (:wt, :tt, :ct, :nn)");
             $pstmt->bindValue(":wt", $wt, PDO::PARAM_STR);
             $pstmt->bindValue(":tt", $tt, PDO::PARAM_STR);
             $pstmt->bindValue(":ct", $ct, PDO::PARAM_STR);
             $pstmt->bindValue(":nn", $nn, PDO::PARAM_STR);
-            if ($file) {
-                $pstmt->bindValue(":ff", $file, PDO::PARAM_STR);
-            } else {
-                $pstmt->bindValue(":ff", $file, PDO::PARAM_NULL);
-            }
 
-            $pstmt->execute();
+            if ($pstmt->execute()) {
+               $id = $this->db->lastInsertId();
+            }
+            return $id;
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
@@ -77,7 +75,7 @@ class Model
     function getContents($num)
     {
         try {
-            $pstmt = $this->db->prepare("SELECT * FROM board WHERE num=:num");
+            $pstmt = $this->db->prepare("SELECT * FROM boards WHERE num=:num");
             $pstmt->bindValue(":num", $num, PDO::PARAM_INT);
             $pstmt->execute();
 
@@ -90,7 +88,7 @@ class Model
     function updateContents($num, $ct)
     {
         try {
-            $pstmt = $this->db->prepare("UPDATE board SET contents=:ct WHERE num=:num");
+            $pstmt = $this->db->prepare("UPDATE boards SET contents=:ct WHERE num=:num");
             $pstmt->bindValue(":ct", $ct, PDO::PARAM_STR);
             $pstmt->bindValue(":num", $num, PDO::PARAM_INT);
             $pstmt->execute();
@@ -102,7 +100,7 @@ class Model
     function deleteContents($num)
     {
         try {
-            $pstmt = $this->db->prepare("DELETE FROM board WHERE num=:num");
+            $pstmt = $this->db->prepare("DELETE FROM boards WHERE num=:num");
             $pstmt->bindValue(":num", $num, PDO::PARAM_INT);
             $pstmt->execute();
         } catch (PDOException $e) {
@@ -113,8 +111,8 @@ class Model
     function callList($page)
     {
         try {
-            $pstmt = $this->db->query("SELECT @ROWNUM := @ROWNUM + 1 AS listCount, COALESCE(countComments,0) as countComments, num, writer, title, publish, view, nick
-            FROM board as b LEFT JOIN (select @ROWNUM := 0, conNum, COUNT(*) as countComments from comment group by conNum) as c
+            $pstmt = $this->db->query("SELECT @ROWNUM := @ROWNUM + 1 AS listCount, COALESCE(countComments,0) as countComments, num, writer, title, publish, nick
+            FROM boards as b LEFT JOIN (select @ROWNUM := 0, conNum, COUNT(*) as countComments from comment group by conNum) as c
             ON b.num = c.conNum
             ORDER BY publish DESC 
             LIMIT " . ($page - 1) * COUNT_LIST . ", " . COUNT_LIST);
@@ -129,7 +127,7 @@ class Model
     {
 //        게시물 갯수 체크
         try {
-            $pstmt = $this->db->query("SELECT COUNT(*) FROM board");
+            $pstmt = $this->db->query("SELECT COUNT(*) FROM boards");
             return $result = $pstmt->fetch(PDO::FETCH_NUM);
         } catch (PDOException $e) {
             exit($e->getMessage());

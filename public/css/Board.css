@@ -2,11 +2,11 @@
  * Base structure
  */
 
-div{
+div {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-button{
+button {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -27,11 +27,9 @@ hr {
     cursor: pointer;
 }
 
-
 i {
     cursor: pointer;
 }
-
 
 li {
     padding: 0;
@@ -47,7 +45,7 @@ h1 {
     border-bottom: 1px solid #eee;
 }
 
-h2{
+h2 {
     font-family: 'Anton', sans-serif;
     margin: 0;
 }
@@ -61,7 +59,7 @@ h2{
     color: white;
 }
 
-.brand:hover{
+.brand:hover {
     color: white;
     text-decoration: none;
     border-right: 0;
@@ -71,7 +69,7 @@ h2{
     background-color: #0059ab;
 }
 
-.side-nav{
+.side-nav {
     text-align: center;
     color: white;
     font-weight: bold;
@@ -79,12 +77,12 @@ h2{
     transition: background-color 0.2s;
 }
 
-.side-nav.hover{
+.side-nav.hover {
     background-color: whitesmoke;
     color: #0059ab;
 }
 
-.side-nav:hover{
+.side-nav:hover {
     background-color: whitesmoke;
 }
 
@@ -195,7 +193,7 @@ td {
 }
 
 .yellowBtn {
-    background-color: rgba(255,238,51,0.99);
+    background-color: rgba(255, 238, 51, 0.99);
     color: black;
     border-color: #e0cf33;
 }
@@ -205,7 +203,7 @@ td {
     border-color: #b1a12c;
 }
 
-.list-comment-wrapper{
+.list-comment-wrapper {
     vertical-align: middle;
     text-align: center;
     display: table;
@@ -220,16 +218,16 @@ td {
     font-size: 1.5rem;
 }
 
-.item-comment-count:hover{
+.item-comment-count:hover {
     cursor: pointer;
 }
 
 #nickName {
     font-family: 'Anton', sans-serif;
-    font-size: 1.2rem ;
+    font-size: 1.2rem;
 }
 
-.contents-list:hover{
+.contents-list:hover {
     background-color: whitesmoke;
     transition: background-color 0.2s;
 }
@@ -238,12 +236,12 @@ td {
     color: white;
 }
 
-.panel-default{
+.panel-default {
     background-color: white;
     border: 1px solid #BBBBBB;
 }
 
-.view-data, .view-data *{
+.view-data, .view-data * {
     cursor: default;
 }
 
@@ -255,19 +253,43 @@ td {
     min-height: 75vh;
 }
 
+.file-scroll{
+    background-color: whitesmoke;
+}
+
+.file-scroll:hover, .file:hover{
+    cursor: pointer;
+}
+
+.file-list{
+
+    border-left: 0;
+    border-right: 0;
+}
+
 /*
  * Detail
  */
 
- .file-text{
-     background-color: whitesmoke;
-     font-family: Anton, Sans-Serif, serif;
- }
+.file-text {
+    background-color: whitesmoke;
+    font-family: Anton, Sans-Serif, serif;
+}
 
- .upfile-box{
-     border-radius: 6px;
-     border: 1px solid #d3d3d3;
- }
+#upfile-box {
+    border-radius: 6px;
+    border: 1px solid #d3d3d3;
+}
+
+#upfile-drag-box {
+    height: 150px;
+    padding-top: 55px;
+    font-family: Anton, Sans-Serif, serif;
+    font-size: 25px;
+    border-radius: 15px;
+    border: 2px dotted black;
+}
+
 /*
  * Write
  */

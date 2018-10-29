@@ -48,7 +48,7 @@ $value = loginCheck();
 $loginCheck = $value[0];
 $name = $value[1];
 
-if (!(($path == "/board/login") || ($path == "/board/logout") || ($path == "/write/update") || ($path == "/signup"))){
+if (!(($path == "/board/login") || ($path == "/board/logout") || ($path == "/write/update") || ($path == "/signup") || ($path == "/download"))){
     require_once _VIEW . "sidebar.php";
 }
 
@@ -80,7 +80,8 @@ switch ($path) {
 
     case '/board/detail':
         $commentList = $commentController->getComments();
-        $controller->detail($commentList);
+        $fileList = $fileController->getFiles();
+        $controller->detail($commentList, $fileList);
         break;
 
     case '/board/modify':
@@ -100,8 +101,9 @@ switch ($path) {
         break;
 
     case '/write/update':
-        $fileId = $fileController->uploadFile();
-        $controller->write($fileId);
+
+        $conNum = $controller->write();
+        $fileController->uploadFile($conNum);
         break;
 
     case '/comment/update' :
@@ -110,6 +112,10 @@ switch ($path) {
 
     case '/comment/delete' :
         $commentController->deleteComments($num);
+        break;
+
+    case '/download' :
+        $fileController->downloadFile();
         break;
 
     //  잘못치거나 board로 치면 항상 기본 페이지로

@@ -99,7 +99,7 @@ class Controller
         $name = requestValue("name");
 
         if ($name && $id && $pw) {
-            $mdao = new Model();
+            $mdao = new Model($this->model);
 
             if ($this->model->getMember($id)) {
                 errorBack("이미 사용중인 아이디 입니다!");
@@ -148,11 +148,12 @@ class Controller
     //    ========================= Member =======================
 
 //컨텐츠의 상세내용을 보여주는 메서드
-    function detail($commentList)
+    function detail($commentList, $fileList)
     {
         $id = $_SESSION["id"] ?? '';
         $name = $_SESSION["name"] ?? '';
         $comments = $commentList;
+        $files = $fileList;
 
         $num = requestValue("num");
 
@@ -213,7 +214,7 @@ class Controller
     }
 
 //글을 작성하는 메서드
-    function write($fileId = null)
+    function write()
     {
 
         if (isset($_SESSION["id"])) {
@@ -221,18 +222,10 @@ class Controller
             $tt = requestValue("title");
             $ct = requestValue("contents");
             $nn = requestValue("nick");
-            $file = $fileId;
 
             if ($wt && $tt && $ct && $nn) {
-
-                if ($file) {
-                    $this->model->insertContents($wt, $tt, $ct, $nn, $file);
-                } else {
-                    $this->model->insertContents($wt, $tt, $ct, $nn);
-                }
-
-                header("Location: /board");
-
+               $conNum = $this->model->insertContents($wt, $tt, $ct, $nn);
+                return $conNum;
             } else {
                 goToPage("값 충분하지 않음", "/board");
             }

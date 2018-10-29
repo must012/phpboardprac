@@ -57,7 +57,9 @@ else :?>
 
     <script type="text/javascript">
 
-        CKEDITOR.replace('contents');
+        CKEDITOR.replace('contents',{
+            filebrowserUploadUrl: '/application/View/upload.php'
+        });
 
         CKEDITOR.instances.contents.updateElement();
 

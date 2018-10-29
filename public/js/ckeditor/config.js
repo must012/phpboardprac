@@ -8,7 +8,7 @@ CKEDITOR.editorConfig = function (config) {
 
     config.height = 400;
     config.toolbarCanCollapse = true;
-    config.filebrowserUploadUrl = '/application/View/upload.php';
+
 
     config.toolbarGroups = [
         {name: 'clipboard', groups: ['clipboard', 'undo']},

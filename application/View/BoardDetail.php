@@ -19,20 +19,20 @@
 
     <div class="panel-heading d-flex pt-2 pb-2">
         <div class="contents-title col-md-3 col-sm-5">
-            <div class="contents-writer"> <?= $data["nick"] ?></div>
-            <div class="contents-data"><?= $data["publish"] ?></div>
+            <div class="contents-writer" title="작성자"> <?= $data["nick"] ?></div>
+            <div class="contents-data" title="작성일"><?= $data["publish"] ?></div>
         </div>
-        <div class="col-md-4 col-sm-1 empty-flex-box"></div>
-        <div class="view-data col-2 text-right">
-            <i class="far fa-eye"></i>&nbsp;<?= $count ?>
+        <div class="col-md-4 col-lg-4 col-sm-1 empty-flex-box"></div>
+        <div class="view-data pt-3 pr-5 col-2 d-flex flex-row-reverse">
+            &nbsp;<?= $count ?><i class="pt-1 far fa-eye" title="조회수"></i>
         </div>
 
         <?php if ($id == $data["writer"]): ?>
-            <div class="action col-3 pl-4 pt-2 float-right">
+            <div class="action col-md-3 col-lg-3 pl-4 pt-2 d-flex flex-row-reverse">
                 <button class="btn blueBtn" onclick="location.href= '/board/modify/<?= $num ?>'"><i
                             class="far fa-edit">수정</i>
                 </button>
-                <button class="btn ml-md-1 redBtn" onclick="checkDeleteContents(<?= $data["num"] ?>)"><i
+                <button class="btn mr-md-1 mr-lg-2 redBtn" onclick="checkDeleteContents(<?= $data["num"] ?>)"><i
                             class="far fa-trash-alt">
                         삭제</i>
                 </button>
@@ -41,18 +41,18 @@
 
     </div>
 
-    <div class="panel-body comment-panel-body pb-4 clearfix">
+    <div class="panel-body contents-panel-body pb-4">
         <div class="col-12 pt-2"><h3><?= $data["title"] ?></h3>
             <hr style="background-color: whitesmoke">
             <div><?= $data["contents"] ?></div>
         </div>
-
-
     </div>
     <ul class="list-group file-download">
-        <li class="list-group-item file-scroll text-center">첨부 <?= count($files) ?> <i class="angle-check fas fa-angle-down"></i></li>
-        <?php foreach ($files as $file):?>
-            <li class="list-group-item file" style="display: none;" onclick="location.href='/download?id=<?= $file["fileId"] ?>'"> <?= $file["originName"] ?></li>
+        <li class="list-group-item file-scroll text-center">첨부 <?= count($files) ?><?php if (count($files) > 0): ?> <i
+                    class="angle-check fas fa-angle-down"></i> <? endif; ?></li>
+        <?php foreach ($files as $file): ?>
+            <li class="list-group-item file" style="display: none;"
+                onclick="location.href='/file/download?id=<?= $file["fileId"] ?>'"> <?= $file["originName"] ?></li>
         <?php endforeach; ?>
     </ul>
 
@@ -66,7 +66,7 @@
         <!-- 댓글 내용 -->
         <?php foreach ($comments as $comment): ?>
 
-            <li class="list-group-item comments" id="<?= $comment["num"] ?>">
+            <li class="list-group-item comments <?php if(!$comment["rootWriter"]){echo "root-comment";}else {echo "tree-comment";} ?> " id="<?= $comment["num"] ?>">
 
                 <div class="comment-head d-flex mb-2">
                     <div class="comment-data d-flex pl-0 col-md-9 col-sm-8">
@@ -155,7 +155,7 @@
 
                     <div class="panel-body mt-1">
                     <textarea class="form-control" name="comment" id="comment<?= $num ?>" rows="3"
-                              placeholder="댓글을 작성해주세요!" required></textarea>
+                              placeholder="댓글을 작성해주세요" required></textarea>
                     </div>
 
                 </form>
@@ -200,7 +200,7 @@
         $target.slideToggle(200);
     });
 
-    $(".file-scroll").click(function(e){
+    $(".file-scroll").click(function (e) {
         const $fileTarget = $(".file");
         const $angleTarget = $(".angle-check");
 

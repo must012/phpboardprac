@@ -3,10 +3,9 @@
 
 <link href="../../public/css/Board.css" rel="stylesheet">
 <style>
-    body {
-        background-color: #eeeeee;
+    .file-scroll:hover, .file:hover {
+        cursor: default;
     }
-
 </style>
 
 <?php if (!isset($_SESSION["id"])) :
@@ -26,7 +25,7 @@ else :?>
     <hr style="background-color: whitesmoke">
 
     <div class="panel-default">
-        <form action="/board/update" method="post">
+        <form class="mb-0" action="/board/update" method="post">
             <input type="hidden" name="num" value="<?= $num ?>" readonly>
 
             <div class="panel-heading d-flex justify-content-between pt-2 pb-2">
@@ -47,21 +46,46 @@ else :?>
 
                     <hr style="background-color: whitesmoke">
                     <div class="form-group">
-                            <textarea class="form-control" id="contents" name="contents" required><?= $data["contents"] ?></textarea>
+                        <textarea class="form-control" id="contents" name="contents"
+                                  required><?= $data["contents"] ?></textarea>
                     </div>
                 </div>
             </div>
+
+            <ul class="list-group file-download">
+
+                <li class="list-group-item file-scroll text-center d-flex justify-content-between">
+                    <div class="pt-md-2">첨부</div>
+
+                    <i class="ml-md-2 fas fa-plus btn yellowBtn"></i>
+
+                </li>
+                <?php foreach ($files as $file): ?>
+                    <li class="list-group-item file d-flex justify-content-between" onclick="location.href='/file/delete?num=<?= $file["num"] ?>'"> <div class="pt-md-2"><?= $file["originName"] ?></div> <i class="far fa-trash-alt btn redBtn"></i></li>
+                <?php endforeach; ?>
+            </ul>
+
         </form>
     </div>
 
 
     <script type="text/javascript">
 
-        CKEDITOR.replace('contents',{
+        CKEDITOR.replace('contents', {
             filebrowserUploadUrl: '/application/View/upload.php'
         });
 
         CKEDITOR.instances.contents.updateElement();
+
+        function to_ajax(){
+            var queryString =$("form[name=upFile]").serialize();
+
+            $.ajax({
+                type: 'post',
+                url: '/file/upload',
+
+            })
+        }
 
     </script>
 

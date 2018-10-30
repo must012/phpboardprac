@@ -7,7 +7,7 @@ div {
 }
 
 button {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: Anton, Sans-Serif, serif;
 }
 
 body {
@@ -97,6 +97,41 @@ h2 {
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
 
+#tools:hover {
+    cursor: pointer;
+}
+
+#tools > li:nth-child(1) {
+    margin-top: 10px;
+}
+
+.tool-item {
+    padding: 0;
+    background-color: #0059ab;
+}
+
+@media (min-width: 1700px) {
+    .side-nav-1, .side-nav-2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (min-width: 1700px) {
+    #loginBtn, #regBtn {
+        font-size: 1rem;
+    }
+}
+
+.form-signup input{
+    margin-top: 10px;
+}
+
+.modal-title{
+    font-size: 1.3rem;
+    font-family: 'Anton', sans-serif;
+    font-weight: bold;
+}
+
 /*
  * sidebar
  */
@@ -135,6 +170,7 @@ td {
  * Board
  */
 
+
 /*
  * .detail
  */
@@ -143,10 +179,6 @@ td {
     color: #0984e3;
     cursor: pointer;
 }
-
-/*
- * .blueBut
- */
 
 .blueBtn {
     background-color: #0984e3;
@@ -249,22 +281,38 @@ td {
     border-bottom: 1px solid #BBBBBB;
 }
 
-.comment-panel-body {
+.contents-panel-body {
     min-height: 75vh;
 }
 
-.file-scroll{
+.file-scroll {
     background-color: whitesmoke;
 }
 
-.file-scroll:hover, .file:hover{
+.file-scroll:hover, .file:hover {
     cursor: pointer;
 }
 
-.file-list{
+.file-list {
 
     border-left: 0;
     border-right: 0;
+}
+
+#comments > ul > li{
+    border-left: 0;
+}
+
+.tree-comment{
+    border-left: 30px solid whitesmoke !important;
+}
+
+.modal-out{
+    font-size: 3rem;
+}
+
+.modal-out:hover{
+    cursor: pointer;
 }
 
 /*

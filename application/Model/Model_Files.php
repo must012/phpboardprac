@@ -19,7 +19,6 @@ class Model_Files
     function uploadFile($fileId, $originName, $saveName, $tmpName, $uploader, $conNum)
     {
         try {
-
             $pstmt = $this->db->prepare("INSERT INTO file(fileId, originName, saveName, tmpName, uploader, contentNum) VALUES (:fileId, :originName, :saveName, :tmpName, :uploader, :conNum)");
             $pstmt->bindValue(":fileId", $fileId, PDO::PARAM_STR);
             $pstmt->bindValue(":originName", $originName, PDO::PARAM_STR);
@@ -32,17 +31,16 @@ class Model_Files
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
-
     }
 
     function getFiles($num, $column = "contentNum")
     {
         try {
             $pstmt = $this->db->prepare("SELECT * FROM file WHERE $column = :num");
-            if ($column != "contentNum") {
-                $pstmt->bindValue(":num", $num, PDO::PARAM_STR);
-            } else {
+            if (($column == "contentNum")||($column == "num")) {
                 $pstmt->bindValue(":num", $num, PDO::PARAM_INT);
+            } else {
+                $pstmt->bindValue(":num", $num, PDO::PARAM_STR);
             }
             $pstmt->execute();
 
@@ -52,9 +50,12 @@ class Model_Files
         }
     }
 
-    function downloadFile($fileId)
+    function deleteFile($num)
     {
         try {
+            $pstmt = $this->db->prepare("DELETE FROM file WHERE num = :num");
+            $pstmt->bindValue(":num", $num, PDO::PARAM_INT);
+            return $pstmt->execute();
 
         } catch (PDOException $e) {
             exit($e->getMessage());

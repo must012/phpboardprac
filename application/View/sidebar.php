@@ -43,33 +43,33 @@
                 <h2><a class="brand" href="/board">PHP REPORT</a></h2></div>
 
             <div class="p-1 col-md-11 ml-auto mr-auto mt-3 mb-3">
-                <?php if (!$loginCheck) :?>
+                <?php if (!$loginCheck) : ?>
                     <form action="/board/login" method="post">
                         <div class="form-group col-11 ml-auto mr-auto">
 
                             <input type="text" class="form-control col-12" id="id" name="id" placeholder="아이디"
                                    required>
-                            <input type="password" class="form-control col-12" id="pw" name="pw" placeholder="비밀번호"
-                                   required>
+                            <input type="password" class="form-control col-12" id="pw" name="pw" placeholder="비밀번호" required>
 
                         </div>
 
                         <div class="d-flex col-12 p-0">
-                            <button type="submit" class="btn btn-sm col-6 blueBtn">로그인
+                            <button type="submit" class="btn btn-sm col-6 blueBtn" id="loginBtn">로그인
                             </button>
-                            <button class="btn btn-sm col-6 whiteBtn"
-                                    onclick="location.href='/signup'">회원가입
+                            <button class="btn btn-sm col-6 whiteBtn" data-toggle="modal" data-target="#regModal">회원가입
                             </button>
                         </div>
 
                     </form>
                 <?php else : ?>
-                    <div class="mb-md-2 row" id="uName" style="color: #FFFFFF">
-                        <div class="col-md-6 col-sm-6 align-middle ml-4 pt-md-2 p-sm-0"><p id="nickName"><?= $name ?> 님</p></div>
+                    <div class="mt-md-3 mb-md-4 row" id="uName" style="color: #FFFFFF">
+                        <div class="col-md-6 col-sm-6 align-middle ml-4 pt-md-2 p-sm-0"><p id="nickName"><?= $name ?>
+                                님</p></div>
                         <div class="col-4 d-flex flex-column">
                             <div class="pb-1"><i class="fas fa-sign-out-alt"
                                                  onclick="location.href='/board/logout'"></i></div>
-                            <div><i class="fas fa-user-cog" onclick="location.href='/member'"></i></div>
+                            <div><i class="fas fa-user-cog" data-toggle="modal" data-target="#memberChangeModal"></i>
+                            </div>
                         </div>
 
                     </div>
@@ -87,38 +87,118 @@
                     <a href="/board" class="nav-link side-nav side-nav-2">Board2</a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="https://www.yjp.ac.kr/portal/main/index_noie.jsp" class="nav-link side-nav" target="_blank">
-                        YJP<i class="fas fa-external-link-alt float-right"></i></a>
-                </li>
+                <ul class="list-group text-center pt-md-2 pb-md-2" id="tools" style="color: white;font-weight: bold">
+                    TOOLS
 
-                <li class="nav-item">
-                    <a href="https://yel.yjc.ac.kr/" class="nav-link side-nav" target="_blank">YEL<i class="fas fa-external-link-alt float-right"></i></a>
-                </li>
+                    <li class="list-group-item tool-item" style="display: none">
+                        <a href="https://www.yjp.ac.kr/portal/main/index_noie.jsp" class="nav-link side-nav"
+                           target="_blank">
+                            YJP<i class="fas fa-external-link-alt float-right"></i></a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="https://fontawesome.com/" class="nav-link side-nav" target="_blank">FontAwesome<i class="fas fa-external-link-alt float-right"></i></a>
-                </li>
+                    <li class="list-group-item tool-item" style="display: none;">
+                        <a href="https://yel.yjc.ac.kr/" class="nav-link side-nav" target="_blank">YEL<i
+                                    class="fas fa-external-link-alt float-right"></i></a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="http://bootstrap4.kr/" class="nav-link side-nav" target="_blank">BootStrap<i class="fas fa-external-link-alt float-right"></i></a>
-                </li>
+                    <li class="list-group-item tool-item" style="display: none;">
+                        <a href="https://fontawesome.com/" class="nav-link side-nav" target="_blank">FontAwesome<i
+                                    class="fas fa-external-link-alt float-right"></i></a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="https://jsfiddle.net/coligo/49gptnad/" class="nav-link side-nav" target="_blank">JSFiddle<i class="fas fa-external-link-alt float-right"></i></a>
-                </li>
+                    <li class="list-group-item tool-item" style="display: none;">
+                        <a href="http://bootstrap4.kr/" class="nav-link side-nav" target="_blank">BootStrap<i
+                                    class="fas fa-external-link-alt float-right"></i></a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="https://www.evernote.com/client/web" class="nav-link side-nav" target="_blank">Evernote<i class="fas fa-external-link-alt float-right"></i></a>
-                </li>
+                    <li class="list-group-item tool-item" style="display: none;">
+                        <a href="https://jsfiddle.net/coligo/49gptnad/" class="nav-link side-nav" target="_blank">JSFiddle<i
+                                    class="fas fa-external-link-alt float-right"></i></a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="https://github.com/must012" class="nav-link side-nav" target="_blank"><i class="fab fa-github fa-2x"></i></a>
-                </li>
+                    <li class="list-group-item tool-item" style="display: none;">
+                        <a href="https://www.evernote.com/client/web" class="nav-link side-nav" target="_blank">Evernote<i
+                                    class="fas fa-external-link-alt float-right"></i></a>
+                    </li>
 
+                    <li class="list-group-item tool-item" style="display: none;">
+                        <a href="https://github.com/must012" class="nav-link side-nav" target="_blank"><i
+                                    class="fab fa-github fa-2x"></i></a>
+                    </li>
+                </ul>
             </ul>
         </nav>
 
         <div class="col-md-2 col-sm-3 mr-4"></div>
+
+        <script>
+            var $target = $("#tools");
+            $target.click(function (e) {
+                var $item = $(".tool-item");
+                $item.slideToggle(200);
+            })
+        </script>
+
+        <?php if (!$loginCheck) : ?>
+
+            <div class="modal fade" id="regModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div></div>
+                            <div class="modal-title">회원 가입</div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span class="modal-out" aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form class="form-signup" action="/signup/update" method="post">
+                            <div class="modal-body">
+                                <input type="text" id="name" class="form-control mb-4" name="name" placeholder="이름"
+                                       required
+                                       autofocus>
+                                <input type="text" id="id" class="form-control mb-4" name="id" placeholder="ID"
+                                       required>
+                                <input type="password" id="pw" class="form-control mb-4" name="pw"
+                                       placeholder="PASSWORD"
+                                       required>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn blueBtn" type="submit">회원가입</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        <?php else: ?>
+
+            <div class="modal fade" id="memberChangeModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div></div>
+                            <div class="modal-title">회원 정보 변경</div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span class="modal-out" aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form class="form-signup" action="/membermodify" method="post">
+                            <div class="modal-body">
+                                <input type="text" id="id" class="form-control" name="id"
+                                       value="<?= $data["id"] ?>"
+                                       readonly>
+                                <input type="text" id="name" class="form-control" name="name"
+                                       value="<?= $data["name"] ?>" required>
+                                <input type="password" id="pw" class="form-control" name="pw" value="<?= $data["pw"] ?>"
+                                       required>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn blueBtn" type="submit">변경완료</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
 
         <main role="main" class="col-sm-7 col-md-7 pr-md-5 pt-md-4 pb-md-2" id="main">

@@ -18,7 +18,8 @@ class Controller_Files
     function uploadFile($conNum)
     {
 
-        if (isset($_FILES["upFiles"]) && $_FILES["upFiles"]["name"] != '') {
+        if (isset($_FILES["upFiles"]["name"][0]) && $_FILES["upFiles"]["name"][0] != '') {
+
             $writer = requestValue("writer");
             $checkExt = array("html", "htm", "php", "php3", "inc", "pl", "cgi", "txt", "TXT", "asp", "jsp", "phtml", "js", "");
             $arrayCount = count($_FILES["upFiles"]["name"]);
@@ -54,9 +55,13 @@ class Controller_Files
         header("Location: /board");
     }
 
-    function getFiles()
+    function getFiles($contentNum = null)
     {
-        $num = requestValue("num");
+        if ($contentNum)
+            $num = $contentNum;
+        else
+            $num = requestValue("num");
+
         return $this->model->getFiles($num);
     }
 
@@ -92,6 +97,20 @@ class Controller_Files
             echo "해당 파일이나 경로가 존재하지 않습니다.";
             exit;
         }
+    }
+
+    function deleteFile()
+    {
+        $data = $this->model->getFiles(requestValue("num"), "num");
+        $this->model->deleteFile(requestValue("num"));
+        $saveName = $data[0]["saveName"];
+
+        if (unlink("../Files/" . $saveName))
+            echo "<script>alert('삭제성공');</script>";
+        else
+            echo "<script>alert('삭제실패');</script>";
+
+        echo "<script>history.back();</script>";
     }
 
 }

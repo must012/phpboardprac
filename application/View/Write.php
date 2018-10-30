@@ -42,7 +42,7 @@ else :?>
                 </div>
                 <div class="action col-2 pt-md-1">
                     <button class="btn ml-3 greBtn" type="submit"><i
-                                class="far fa-edit"> 글쓰기</i>
+                                class="far fa-edit"> 저장</i>
                     </button>
                 </div>
             </div>

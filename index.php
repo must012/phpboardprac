@@ -48,7 +48,10 @@ $value = loginCheck();
 $loginCheck = $value[0];
 $name = $value[1];
 
-if (!(($path == "/board/login") || ($path == "/board/logout") || ($path == "/write/update") || ($path == "/signup") || ($path == "/download"))){
+if (!(($path == "/board/logout") || ($path == "/write/update") || ($path == "/signup") || ($path == "/file/download"))){
+    if($loginCheck)
+        $data = $model->getMember($_SESSION["id"]);
+
     require_once _VIEW . "sidebar.php";
 }
 
@@ -60,10 +63,6 @@ switch ($path) {
 
     case '/board/logout':
         $controller->logout();
-        break;
-
-    case '/signup':
-        require_once _VIEW . "Signup.php";
         break;
 
     case '/signup/update':
@@ -85,7 +84,8 @@ switch ($path) {
         break;
 
     case '/board/modify':
-        $controller->contentModify($num);
+        $fileList = $fileController->getFiles($num);
+        $controller->contentModify($num, $fileList);
         break;
 
     case '/board/update':
@@ -114,8 +114,16 @@ switch ($path) {
         $commentController->deleteComments($num);
         break;
 
-    case '/download' :
+    case 'file/upload':
+        $fileController->uploadFile($_REQUEST["num"]);
+        break;
+
+    case '/file/download' :
         $fileController->downloadFile();
+        break;
+
+    case '/file/delete' :
+        $fileController->deleteFile();
         break;
 
     //  잘못치거나 board로 치면 항상 기본 페이지로

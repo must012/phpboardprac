@@ -42,7 +42,7 @@ class Controller
 
         $list = $this->model->callList($page, $endPage);
 
-        require_once _VIEW . "BoardList.php";
+        require _VIEW . "BoardList.php";
     }
 
 //    ========================= Main =======================
@@ -118,9 +118,8 @@ class Controller
     {
         $originId = $_SESSION["id"] ?? '';
 
-        $data = $this->model->getMember($originId);
+        return $data = $this->model->getMember($originId);
 
-        require_once _VIEW . "Member.php";
     }
 
 //받은 데이터대로 회원 정보를 수정하는 메서드
@@ -175,11 +174,11 @@ class Controller
     }
 
 //컨텐츠의 내용을 수정하는 View를 불러오고 데이터를 입력받는 메서드
-    function contentModify($num)
+    function contentModify($num, $fileList)
     {
         $data = $this->model->getContents($num);
         $id = $_SESSION["id"] ?? '';
-
+        $files = $fileList;
 
         if ($id == $data["writer"]) {
             require_once _VIEW . "ContentModify.php";

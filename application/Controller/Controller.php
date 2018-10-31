@@ -42,7 +42,7 @@ class Controller
 
         $list = $this->model->callList($page, $endPage);
 
-        require _VIEW . "BoardList.php";
+        require_once _VIEW . "BoardList.php";
     }
 
 //    ========================= Main =======================

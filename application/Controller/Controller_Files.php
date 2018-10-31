@@ -17,11 +17,10 @@ class Controller_Files
 
     function uploadFile($conNum)
     {
-
         if (isset($_FILES["upFiles"]["name"][0]) && $_FILES["upFiles"]["name"][0] != '') {
 
             $writer = requestValue("writer");
-            $checkExt = array("html", "htm", "php", "php3", "inc", "pl", "cgi", "txt", "TXT", "asp", "jsp", "phtml", "js", "");
+            $checkExt = array("html", "htm", "php", "php3", "inc", "pl", "cgi", "asp", "jsp", "phtml", "js", "");
             $arrayCount = count($_FILES["upFiles"]["name"]);
 
             for ($i = 0; $i < $arrayCount; $i++) {
@@ -52,6 +51,8 @@ class Controller_Files
 
         }
 
+
+
         header("Location: /board");
     }
 
@@ -69,7 +70,7 @@ class Controller_Files
     {
         $id = requestValue("id");
         $data = $this->model->getFiles($id, "fileId");
-        print_r($data);
+
         $fileName = $data[0]["saveName"];
         $downloadName = $data[0]["originName"];
 
@@ -77,21 +78,99 @@ class Controller_Files
         $fileSize = filesize($downloadPath . $fileName);
         if (is_ie()) $fileName = utf2euc($fileName);
 
+        $path_parts = pathinfo($downloadPath . $fileName);
+        $ext = strtolower($path_parts["extension"]);
+
+        switch ($ext) {
+            case "pdf":
+                $ctype = "application/pdf";
+                break;
+            case "exe":
+                $ctype = "application/octet-stream";
+                break;
+            case "zip":
+                $ctype = "application/zip";
+                break;
+            case "doc":
+                $ctype = "application/msword";
+                break;
+            case "xls":
+                $ctype = "application/vnd.ms-excel";
+                break;
+            case "pptx":
+            case "ppt":
+                $ctype = "application/vnd.ms-powerpoint";
+                break;
+            case "gif":
+                $ctype = "image/gif";
+                break;
+            case "png":
+                $ctype = "image/png";
+                break;
+            case "jpeg":
+            case "jpg":
+                $ctype = "image/jpg";
+                break;
+            case "mp3":
+                $ctype = "audio/mpeg";
+                break;
+            case "wav":
+                $ctype = "audio/x-wav";
+                break;
+            case "mpeg":
+            case "mpg":
+            case "mpe":
+                $ctype = "video/mpeg";
+                break;
+            case "mov":
+                $ctype = "video/quicktime";
+                break;
+            case "avi":
+                $ctype = "video/x-msvideo";
+                break;
+            case "php":
+                $ctype = "application/force-download";
+                break;
+            case "htm":
+            case "hwp":
+                $ctype = "application/force-download";
+                break;
+            case "html":
+            case 'txt' :
+                $ctype = "text/plain";
+                break;
+
+            default:
+                $ctype = "application/force-download";
+        }
+
         if (is_file($downloadPath . $fileName)) {
-            header("Pragma: no-cache");
+
+//            header("Content-Type: $ctype");
+//            header("Pragma: public");
+//            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+//            header("Cache-Control: private", false);
+//            header("Expires: 0");
+//            header("Content-Disposition: attachment; filename=\"$downloadName\"");
+//            header("Content-Transfer-Encoding: binary");
+//            header("Content-Length: $fileSize");
+
+
+            header("Pragma: public");
+            header("Content-Type: $ctype");
             header("Expires: 0");
-            header("Content-Type: application/octet-stream");
             header("Content-Disposition: attachment; filename=\"$downloadName\"");
             header("Content-Transfer-Encoding: binary");
             header("Content-Length: $fileSize");
 
-            readfile($downloadPath . $fileName);
+            $fp = fopen($downloadPath . $fileName, "rb");
 
-            $fp = fopen($downloadPath . $fileName, "r");
-            if (!fpassthru($fp))// 서버부하를 줄이려면 print 나 echo 또는 while 문을 이용한 기타 보단 이방법이...
-            {
-                fclose($fp);
-            }
+            fpassthru($fp);
+           // $content =  fread($fp, filesize($downloadPath . $fileName));
+           // print $content;
+            flush();
+            fclose($fp);
+
 
         } else {
             echo "해당 파일이나 경로가 존재하지 않습니다.";

@@ -20,13 +20,6 @@ $path = parse_url($_SERVER['REQUEST_URI'], 5);
 $paths = explode("/", $_SERVER["REQUEST_URI"]);
 $num = '';
 
-?>
-    <script type="text/javascript">
-        console.log("request url : <?= $_SERVER["REQUEST_URI"] ?>");
-        console.log("path type : <?= gettype($path) ?>");
-        console.log("path value : <?= $path ?> ");
-    </script>
-<?php
 
 //매개 변수값은 따로 저장
 if (count($paths) > 3) {
@@ -119,6 +112,12 @@ switch ($path) {
         break;
 
     case '/file/download' :
+        if( headers_sent() )
+            die('Headers Already Sent');
+
+        if(ini_get('zlib.output_compression'))
+            ini_set('zlib.output_compression', 'Off');
+
         $fileController->downloadFile();
         break;
 

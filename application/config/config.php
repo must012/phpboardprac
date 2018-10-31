@@ -91,7 +91,7 @@ function mb_basename($path)
 
 function utf2euc($str)
 {
-    return iconv("UTF-8", "cp949//IGNORE", $str);
+    return iconv("UTF-8", "cp949", $str);
 }
 
 function is_ie()

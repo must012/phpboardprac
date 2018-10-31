@@ -47,12 +47,12 @@
             <div><?= $data["contents"] ?></div>
         </div>
     </div>
+
     <ul class="list-group file-download">
         <li class="list-group-item file-scroll text-center">첨부 <?= count($files) ?><?php if (count($files) > 0): ?> <i
                     class="angle-check fas fa-angle-down"></i> <? endif; ?></li>
         <?php foreach ($files as $file): ?>
-            <li class="list-group-item file" style="display: none;"
-                onclick="location.href='/file/download?id=<?= $file["fileId"] ?>'"> <?= $file["originName"] ?></li>
+            <li class="list-group-item file" style="display: none;" onclick="location.href='/file/download?id=<?= $file["fileId"] ?>'"><?= $file["originName"] ?></li>
         <?php endforeach; ?>
     </ul>
 

@@ -50,9 +50,6 @@ class Controller_Files
             }
 
         }
-
-
-
         header("Location: /board");
     }
 
@@ -146,16 +143,6 @@ class Controller_Files
 
         if (is_file($downloadPath . $fileName)) {
 
-//            header("Content-Type: $ctype");
-//            header("Pragma: public");
-//            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-//            header("Cache-Control: private", false);
-//            header("Expires: 0");
-//            header("Content-Disposition: attachment; filename=\"$downloadName\"");
-//            header("Content-Transfer-Encoding: binary");
-//            header("Content-Length: $fileSize");
-
-
             header("Pragma: public");
             header("Content-Type: $ctype");
             header("Expires: 0");
@@ -163,15 +150,12 @@ class Controller_Files
             header("Content-Transfer-Encoding: binary");
             header("Content-Length: $fileSize");
 
-            $fp = fopen($downloadPath . $fileName, "rb");
-
-            fpassthru($fp);
-           // $content =  fread($fp, filesize($downloadPath . $fileName));
-           // print $content;
+            ob_clean();
             flush();
+
+            $fp = fopen($downloadPath . $fileName, "rb");
+            fpassthru($fp);
             fclose($fp);
-
-
         } else {
             echo "해당 파일이나 경로가 존재하지 않습니다.";
             exit;

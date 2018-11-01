@@ -19,33 +19,39 @@
             <li class="list-group-item d-flex flex-row contents-list">
 
                 <!--                        제목 부분 div -->
-                <div class="list-title-wrapper col-md-6">
-                    <div class="list-tag">
-                        <span class="list-group-item-text article-id"><?= ($page - 1) * COUNT_LIST + $value["listCount"] ?> </span>
-                        <a href="#" class="list-group-item-text item-tag label label-info"><i
-                                    class="fa fa-database"></i> 태그 부분 </a>
+                <div class="list-title-wrapper col-md-6 pt-md-2">
+                    <div class="list-tag d-flex">
+                        <p class="list-group-item-text article-id mr-md-3"><?= ($page - 1) * COUNT_LIST + $value["listCount"] ?> </p>
+                        <a href="#" class="list-group-item-text item-tag label label-info">태그 부분 </a>
                     </div>
                     <p class="list-title detail"
                        onclick="location.href = '/board/detail?num=<?= $value["num"] ?>'"><?= $value["title"] ?></p>
 
                 </div>
 
-                <!--                        댓글 부분 div  -->
-                <div class="list-comment-wrapper col-md-2 d-flex" onclick="location.href = '/board/detail?num=<?= $value["num"] ?>#comments'">
-
-                    <div class="item-comment-icon col-md-5 p-0 pt-2"><i class="far fa-comment-alt"></i>
-                    </div>
-                    <div class="item-comment-count col-md-4 p-0"><?= $value["countComments"] ?></div>
-
-                </div>
-
                 <!--                        작성자 및 날짜 div-->
-                <div class="list-data-wrapper col-md-4">
+                <div class="list-data-wrapper col-md-4 pt-md-2">
                     <div class='content-data'>
                         <div class="writer-info"><p class="writer"><?= $value["nick"] ?></p>
                             <div class="published"><?= $value["publish"] ?>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!--                        댓글 부분 div  -->
+
+                <div class="col-md-2 p-0 mt-2 d-flex justify-content-around">
+                    <div class="d-flex p-0" id="comment-count-box" onclick="location.href = '/board/detail?num=<?= $value["num"] ?>#comments'">
+                        <div class="item-comment-icon p-0"><i class="far fa-comment-alt fa-sm"></i>
+                        </div>
+                        <div class="item-comment-count p-0 ml-2"><?= $value["countComments"] ?></div>
+                    </div>
+
+                    <div class="d-flex p-0" id="recommend-count-box">
+                        <div class="item-comment-icon p-0"><i class="far fa-thumbs-up fa-sm"></i>
+                        </div>
+                        <div class="item-comment-count p-0 ml-2"><?= $value["countComments"] ?></div>
                     </div>
                 </div>
 
@@ -111,7 +117,7 @@
     var $link;
     var $main;
 
-    $('.side-nav').click(function() {
+    $('.side-nav').click(function () {
         $('.side-nav').removeClass('hover');
         $(this).addClass('hover');
     });
@@ -122,5 +128,5 @@
         $main.attr()
     });
 
-// $(".side-nav-1").addClass("hover");
+    // $(".side-nav-1").addClass("hover");
 </script>

@@ -166,6 +166,10 @@ td {
     text-align: center;
 }
 
+#comment-count-box:hover{
+    cursor: pointer;
+}
+
 /*
  * Board
  */
@@ -235,24 +239,14 @@ td {
     border-color: #b1a12c;
 }
 
-.list-comment-wrapper {
-    vertical-align: middle;
-    text-align: center;
-    display: table;
-}
-
 .item-comment-icon {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
 }
 
 .item-comment-count {
-    display: table-cell;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
 }
 
-.item-comment-count:hover {
-    cursor: pointer;
-}
 
 #nickName {
     font-family: 'Anton', sans-serif;

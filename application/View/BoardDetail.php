@@ -23,8 +23,22 @@
             <div class="contents-data" title="작성일"><?= $data["publish"] ?></div>
         </div>
         <div class="col-md-4 col-lg-4 col-sm-1 empty-flex-box"></div>
-        <div class="view-data pt-3 pr-5 col-2 d-flex flex-row-reverse">
-            &nbsp;<?= $count ?><i class="pt-1 far fa-eye" title="조회수"></i>
+<!--        <div class="view-data pt-3 pr-5 col-2 d-flex flex-row-reverse">-->
+<!--            &nbsp;--><?//= $count ?><!--<i class="pt-1 far fa-eye" title="조회수"></i>-->
+<!--        </div>-->
+
+        <div class="col-md-2 p-0 mt-2 d-flex justify-content-around">
+            <div class="d-flex p-0" id="comment-count-box" onclick="location.href = '/board/detail?num=<?= $value["num"] ?>#comments'">
+                <div class="item-comment-icon p-0"><i class="far fa-comment-alt fa-sm"></i>
+                </div>
+                <div class="item-comment-count p-0 ml-2"><?= $count ?></div>
+            </div>
+
+            <div class="d-flex p-0" id="recommend-count-box">
+                <div class="item-comment-icon p-0"><i class="far fa-thumbs-up fa-sm"></i>
+                </div>
+                <div class="item-comment-count p-0 ml-2"><?= $count ?></div>
+            </div>
         </div>
 
         <?php if ($id == $data["writer"]): ?>
@@ -82,9 +96,9 @@
                         <div class="comment-action col-md-3 col-sm-2 p-sm-0 d-flex flex-row-reverse">
                             <div class="reply">
 
-                                <button class="btn yellowBtn replyMessages" style="width:38px"
+                                <button class="btn yellowBtn replyMessages"
                                         id="btn-<?= $comment["num"] ?>" title="대댓글작성">
-                                    <i class="fas fa-comment fa-sm"></i>
+                                    <i class="fas fa-reply fa-sm"></i>
                                 </button>
                                 <?php if ($id == $comment["writer"]): ?>
                                     <button class="btn redBtn"
@@ -92,7 +106,7 @@
                                             title="댓글삭제">
                                         <i class="far fa-trash-alt fa-sm"></i>
                                     </button>
-                                    <button class="btn blueBtn" style="width: 38px;" title="수정하기"><i
+                                    <button class="btn blueBtn" id="comment-rewrite" style="width: 38px;" title="수정하기"><i
                                                 class="fas fa-edit fa-sm"></i>
                                     </button>
                                 <?php endif; ?>

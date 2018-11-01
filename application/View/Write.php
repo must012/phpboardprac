@@ -1,17 +1,13 @@
 <!-- 글을 작성하는 View -->
 
-<!--   ck editor -->
+<!-- ck editor -->
 
 <script type="text/javascript" src="../../public/js/ckeditor/ckeditor.js"></script>
 
-<!--   custom css -->
-<link href="../../public/css/Board.css" rel="stylesheet">
+<!-- dropzone.js -->
 
-<style>
-    body {
-        background-color: #eeeeee;
-    }
-</style>
+<script src="../../public/js/dropzone/dropzone.js"></script>
+<link rel="stylesheet" href="../../public/css/dropzone.css">
 
 <?php if (!isset($_SESSION["id"])) :
     goToPage("로그인 한 사용자만 글쓰기 가능", "/board");
@@ -32,7 +28,7 @@ else :?>
     <hr style="background-color: whitesmoke">
 
     <div class="panel-default">
-        <form action="/write/update" enctype="multipart/form-data" method="post" onsubmit="return checkExt(this)">
+        <form class="mb-md-5 mb-sm-4" action="/write/update" enctype="multipart/form-data" method="post">
             <input type="hidden" name="writer" value="<?= $_SESSION["id"] ?>" readonly>
             <input type="hidden" name="nick" value="<?= $_SESSION["name"] ?>" readonly>
 
@@ -41,7 +37,7 @@ else :?>
                     <div class="contents-writer">작성자 : <?= $_SESSION["name"] ?> </div>
                 </div>
                 <div class="action col-2 pt-md-1">
-                    <button class="btn ml-3 greBtn" type="submit"><i
+                    <button class="btn ml-3 greBtn" id="submit-all" type="submit"><i
                                 class="far fa-edit"> 저장</i>
                     </button>
                 </div>
@@ -49,7 +45,6 @@ else :?>
 
             <div class="panel-body">
                 <div class="col-12 pt-2 form-group">
-
 
                     <input type="text" id="title" class="form-control" name="title" aria-label="제목" placeholder="제목"
                            required autofocus>
@@ -61,78 +56,66 @@ else :?>
                 </div>
             </div>
 
-            <div class="panel-footer col-12 m-auto">
-                <div id="upfile-box" class="col-12 input-group p-0">
-                    <div class="input-group-append file-text pt-2 pl-1 pr-1">
-                        <span class="input-group-text">업로드</span>
-                    </div>
-                    <div class="col-11 p-0">
-                        <input type="file" class="btn col-12 custom-file-input border border-primary" id="upFile"
-                               name="upFiles[]" multiple>
-                    </div>
-                </div>
-
-                <div id="upfile-drag-box" class="col-12 mt-3 text-center">
-                    Drag & Drop!
-                </div>
+            <div class="panel-footer col-11 m-auto dropzone">
+<!--                <div id="upfile-box" class="col-12 input-group p-0">-->
+<!--                    <div class="input-group-append file-text pt-2 pl-1 pr-1">-->
+<!--                        <span class="input-group-text">업로드</span>-->
+<!--                    </div>-->
+<!--                    <div class="col-11 p-0">-->
+<!--                                                <input type="file" class="btn col-12 custom-file-input border border-primary" id="upFile"-->
+<!--                                                       name="upFiles[]" multiple>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <!---->-->
+<!--                                <div id="upfile-drag-box" class="col-12 mt-3 text-center">-->
+<!--                                    <input class="dropzone" type="file">-->
+<!--                                </div>-->
             </div>
         </form>
     </div>
 
 
     <script type="text/javascript">
-        $(function () {
-            var drop = $("#upfile-drag-box");
-            drop.on('dragenter', function (e) {
-                e.stopPropagation();
-                e.preventDefault();
-                $(this).css('border', '2px dotted #0059ab');
-            });
-            drop.on('dragleave', function (e) {
-                e.stopPropagation();
-                e.preventDefault();
-                $(this).css('border', '2px dotted red');
-            });
-            drop.on('dragover', function (e) {
-                e.stopPropagation();
-                e.preventDefault();
-            });
-            drop.on('drop', function (e) {
-                e.preventDefault();
-                $(this).css('border', '2px dotted black');
-                var files = e.originalEvent.dataTransfer.files;
-                if (files.length < 1)
-                    return;
-                F_FileMultiUpload(files, obj);
-            });
-        });
 
 
-        function checkExt(file) {
-            var path = document.getElementById("upFile").value;
-            if (path) {
-                if (path == "") {
-                    alert("파일 선택이 잘못 되었습니다.");
-                    return false;
-                }
-            }
-
-            var pos = path.index(".");
-            if (pos < 0) {
-                alert("확장자가 없는 파일");
-                return false;
-            }
-
-            return true;
-        }
-
-
-        CKEDITOR.replace('contents',{
+        CKEDITOR.replace('contents', {
             filebrowserImageUploadUrl: "/application/View/upload.php?type=image",
             extraPlugins: 'uploadimage'
         });
 
         CKEDITOR.instances.contents.updateElement();
+
+        Dropzone.autoDiscover = false;
+
+        Dropzone.options.myDropzone = {
+
+            url: '/write/update',
+            autoProcessQueue: false,
+            uploadMultiple: true,
+            parallelUploads: 25,
+            maxFiles: 25,
+            action: "post",
+            acceptedFiles: 'image/*,audio/*,application/pdf,application/octet-stream,application/zip,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,application/force-download,video/*',
+            addRemoveLinks: true,
+            previewsContainer: '.dropzone-preview',
+            init: function () {
+                dzClosure = this; // Makes sure that 'this' is understood inside the functions below.
+
+                // for Dropzone to process the queue (instead of default form behavior):
+                document.getElementById("submit-all").addEventListener("click", function (e) {
+                    // Make sure that the form isn't actually being sent.
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dzClosure.processQueue();
+                });
+
+                //send all the form data along with the files:
+                this.on("sendingmultiple", function (data, xhr, formData) {
+                    formData.append("firstname", jQuery("#firstname").val());
+                    formData.append("lastname", jQuery("#lastname").val());
+                });
+            }
+        }
 
     </script>
 <?php endif; ?>
